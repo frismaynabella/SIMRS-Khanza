@@ -5410,28 +5410,29 @@ private void BtnPasienKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event
                         }
 
                         //gambar pemeriksaan radiologi
-                        try{
+try{
                             rs2=koneksi.prepareStatement(
                                  "select gambar_radiologi.tgl_periksa,gambar_radiologi.jam,gambar_radiologi.lokasi_gambar from gambar_radiologi where gambar_radiologi.no_rawat='"+rs.getString("no_rawat")+"' order by gambar_radiologi.tgl_periksa,gambar_radiologi.jam").executeQuery();
                             if(rs2.next()){                                    
                                 htmlContent.append(  
-                                  "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>").append(
-                                    "<tr><td valign='top' colspan='3'>Gambar Radiologi</td></tr>").append(  
-                                    "<tr align='center'>").append(
-                                      "<td valign='top' width='4%' bgcolor='#FFFAF8'>No.</td>").append(
-                                      "<td valign='top' width='15%' bgcolor='#FFFAF8'>Tanggal</td>").append(
-                                      "<td valign='top' width='81%' bgcolor='#FFFAF8'>Gambar Radiologi</td>").append(
+                                  "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"+
+                                    "<tr><td valign='top' colspan='3'>Gambar Radiologi</td></tr>"+  
+                                    "<tr align='center'>"+
+                                      "<td valign='top' width='4%' bgcolor='#FFFAF8'>No.</td>"+
+                                      "<td valign='top' width='15%' bgcolor='#FFFAF8'>Tanggal</td>"+
+                                      "<td valign='top' width='81%' bgcolor='#FFFAF8'>Gambar Radiologi</td>"+
                                     "</tr>");
+                                rs2.beforeFirst();
                                 w=1;
-                                do{
+                                while(rs2.next()){
                                     htmlContent.append(
-                                         "<tr height='").append(internalFrame2.getHeight()).append("px'>").append(
-                                            "<td valign='top' align='center'>").append(w).append("</td>").append(
-                                            "<td valign='top'>").append(rs2.getString("tgl_periksa")).append(" ").append(rs2.getString("jam")).append("</td>").append(
-                                            "<td valign='top' align='center'><a href='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/radiologi/").append(rs2.getString("lokasi_gambar")).append("'><img alt='Gambar Radiologi' src='http://").append(koneksiDB.HOSTHYBRIDWEB()).append(":").append(koneksiDB.PORTWEB()).append("/").append(koneksiDB.HYBRIDWEB()).append("/radiologi/").append(rs2.getString("lokasi_gambar")).append("' width='450' height='450'/></a></td>").append(
+                                         "<tr>"+
+                                            "<td valign='top' align='center'>"+w+"</td>"+
+                                            "<td valign='top'>"+rs2.getString("tgl_periksa")+" "+rs2.getString("jam")+"</td>"+
+                                            "<td valign='top' align='center'><a href='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/radiologi/"+rs2.getString("lokasi_gambar")+"'><img alt='Gambar Radiologi' src='http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/radiologi/"+rs2.getString("lokasi_gambar")+"' width='100%' height='100%'/></a></td>"+
                                          "</tr>"); 
                                     w++;
-                                }while(rs2.next());
+                                }
                                 htmlContent.append(
                                   "</table>");
                             }                                
