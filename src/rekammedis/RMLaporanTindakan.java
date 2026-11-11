@@ -931,36 +931,47 @@ public final class RMLaporanTindakan extends javax.swing.JDialog {
 }//GEN-LAST:event_BtnHapusKeyPressed
 
     private void BtnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEditActionPerformed
-        if(TNoRM.getText().trim().equals("")){
-            Valid.textKosong(TNoRw,"Nama Pasien");
-        }else if(NmPetugas.getText().trim().equals("")){
-            Valid.textKosong(BtnPetugas,"Petugas");
-        }else if(NmDokter.getText().trim().equals("")){
-            Valid.textKosong(BtnDokter,"Dokter");
-        }else if(TindakanMedis.getText().trim().equals("")){
-            Valid.textKosong(TindakanMedis,"Tindakan Medis");
-        }else{
-            if(tbObat.getSelectedRow()>-1){
-                if(akses.getkode().equals("Admin Utama")){
-                    ganti();
-                }else{
-                    if(KdPetugas.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(),5).toString())){
-                        if(Sequel.cekTanggal48jam(tbObat.getValueAt(tbObat.getSelectedRow(),9).toString(),Sequel.ambiltanggalsekarang())==true){
-                            if(TanggalRegistrasi.getText().equals("")){
-                                TanggalRegistrasi.setText(Sequel.cariIsi("select concat(reg_periksa.tgl_registrasi,' ',reg_periksa.jam_reg) from reg_periksa where reg_periksa.no_rawat=?",TNoRw.getText()));
-                            }
-                            if(Sequel.cekTanggalRegistrasi(TanggalRegistrasi.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19))==true){
-                                ganti();
-                            }
+if(TNoRM.getText().trim().equals("")){
+        Valid.textKosong(TNoRw,"Nama Pasien");
+    }else if(NmPetugas.getText().trim().equals("")){
+        Valid.textKosong(BtnPetugas,"Petugas");
+    }else if(NmDokter.getText().trim().equals("")){
+        Valid.textKosong(BtnDokter,"Dokter");
+    }else if(TindakanMedis.getText().trim().equals("")){
+        Valid.textKosong(TindakanMedis,"Tindakan Medis");
+    }else{
+        if(tbObat.getSelectedRow()>-1){
+            if(akses.getkode().equals("Admin Utama")){
+                ganti();
+            }else{
+                // MODIFIKASI PERBAIKAN LAPORAN TINDAKAN - Ganti KdPetugas menjadi KdDokter
+                if(KdDokter.getText().equals(tbObat.getValueAt(tbObat.getSelectedRow(),5).toString())){
+                    boolean sudah48jam = Sequel.cekTanggal48jam(
+                        tbObat.getValueAt(tbObat.getSelectedRow(),9).toString(),
+                        Sequel.ambiltanggalsekarang()
+                    );
+                    // MODIFIKASI PERBAIKAN LAPORAN TINDAKAN - Perbaikan logika validasi 48 jam
+                    if(sudah48jam){
+                        if(TanggalRegistrasi.getText().equals("")){
+                            TanggalRegistrasi.setText(Sequel.cariIsi(
+                                "select concat(reg_periksa.tgl_registrasi,' ',reg_periksa.jam_reg) from reg_periksa where reg_periksa.no_rawat=?",
+                                TNoRw.getText()
+                            ));
+                        }
+                        if(Sequel.cekTanggalRegistrasi(TanggalRegistrasi.getText(),Valid.SetTgl(TglAsuhan.getSelectedItem()+"")+" "+TglAsuhan.getSelectedItem().toString().substring(11,19))==true){
+                            ganti();
                         }
                     }else{
-                        JOptionPane.showMessageDialog(null,"Hanya bisa diganti oleh psikolog yang bersangkutan..!!");
+                        JOptionPane.showMessageDialog(null,"Data tidak dapat diedit, sudah melewati batas 2x24 jam!");
                     }
+                }else{
+                    JOptionPane.showMessageDialog(null,"Hanya bisa diganti oleh dokter yang bersangkutan..!!");
                 }
-            }else{
-                JOptionPane.showMessageDialog(rootPane,"Silahkan anda pilih data terlebih dahulu..!!");
             }
+        }else{
+            JOptionPane.showMessageDialog(rootPane,"Silahkan anda pilih data terlebih dahulu..!!");
         }
+    }
 }//GEN-LAST:event_BtnEditActionPerformed
 
     private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BtnEditKeyPressed
