@@ -12574,28 +12574,56 @@ private void BtnEditKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_B
                    "jns_perawatan.tarif_tindakandr,jns_perawatan.tarif_tindakanpr,jns_perawatan.kso,jns_perawatan.menejemen from jns_perawatan inner join kategori_perawatan "+
                    "on jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori  "+
                    "where jns_perawatan.total_byrdr>0 and jns_perawatan.status='1' and (jns_perawatan.kd_pj=? or jns_perawatan.kd_pj='-') and (jns_perawatan.kd_poli=? or jns_perawatan.kd_poli='-') and "+
-                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.nm_perawatan "); 
+                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.kd_kategori, "+
+                   // MODIFIKASI: Custom sorting agar pasangan BIAYA SARANA KONSULTASI dan JASA KONSULTASI berdekatan dalam kategori yang sama
+                   "CASE "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'BIAYA SARANA KONSUL%' THEN 1 "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'JASA KONSUL%' THEN 2 "+
+                   "  ELSE 3 "+
+                   "END, "+
+                   "jns_perawatan.nm_perawatan "); 
             }else if(tarifralan.getPoliRalan().equals("No")&&tarifralan.getCaraBayarRalan().equals("Yes")){
                 pstindakan=koneksi.prepareStatement("select jns_perawatan.kd_jenis_prw,jns_perawatan.nm_perawatan,kategori_perawatan.nm_kategori,"+
                    "jns_perawatan.total_byrdr,jns_perawatan.total_byrpr,jns_perawatan.total_byrdrpr,jns_perawatan.bhp,jns_perawatan.material,"+
                    "jns_perawatan.tarif_tindakandr,jns_perawatan.tarif_tindakanpr,jns_perawatan.kso,jns_perawatan.menejemen from jns_perawatan inner join kategori_perawatan "+
                    "on jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori  "+
                    "where jns_perawatan.total_byrdr>0 and jns_perawatan.status='1' and (jns_perawatan.kd_pj=? or jns_perawatan.kd_pj='-') and "+
-                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.nm_perawatan ");        
+                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.kd_kategori, "+
+                   // MODIFIKASI: Custom sorting agar pasangan BIAYA SARANA KONSULTASI dan JASA KONSULTASI berdekatan dalam kategori yang sama
+                   "CASE "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'BIAYA SARANA KONSUL%' THEN 1 "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'JASA KONSUL%' THEN 2 "+
+                   "  ELSE 3 "+
+                   "END, "+
+                   "jns_perawatan.nm_perawatan ");        
             }else if(tarifralan.getPoliRalan().equals("Yes")&&tarifralan.getCaraBayarRalan().equals("No")){
                 pstindakan=koneksi.prepareStatement("select jns_perawatan.kd_jenis_prw,jns_perawatan.nm_perawatan,kategori_perawatan.nm_kategori,"+
                    "jns_perawatan.total_byrdr,jns_perawatan.total_byrpr,jns_perawatan.total_byrdrpr,jns_perawatan.bhp,jns_perawatan.material,"+
                    "jns_perawatan.tarif_tindakandr,jns_perawatan.tarif_tindakanpr,jns_perawatan.kso,jns_perawatan.menejemen from jns_perawatan inner join kategori_perawatan "+
                    "on jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori  "+
                    "where jns_perawatan.total_byrdr>0 and jns_perawatan.status='1' and (jns_perawatan.kd_poli=? or jns_perawatan.kd_poli='-') and "+
-                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.nm_perawatan ");     
+                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.kd_kategori, "+
+                   // MODIFIKASI: Custom sorting agar pasangan BIAYA SARANA KONSULTASI dan JASA KONSULTASI berdekatan dalam kategori yang sama
+                   "CASE "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'BIAYA SARANA KONSUL%' THEN 1 "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'JASA KONSUL%' THEN 2 "+
+                   "  ELSE 3 "+
+                   "END, "+
+                   "jns_perawatan.nm_perawatan ");     
             }else if(tarifralan.getPoliRalan().equals("No")&&tarifralan.getCaraBayarRalan().equals("No")){
                 pstindakan=koneksi.prepareStatement("select jns_perawatan.kd_jenis_prw,jns_perawatan.nm_perawatan,kategori_perawatan.nm_kategori,"+
                    "jns_perawatan.total_byrdr,jns_perawatan.total_byrpr,jns_perawatan.total_byrdrpr,jns_perawatan.bhp,jns_perawatan.material,"+
                    "jns_perawatan.tarif_tindakandr,jns_perawatan.tarif_tindakanpr,jns_perawatan.kso,jns_perawatan.menejemen from jns_perawatan inner join kategori_perawatan "+
                    "on jns_perawatan.kd_kategori=kategori_perawatan.kd_kategori  "+
                    "where jns_perawatan.total_byrdr>0 and jns_perawatan.status='1' and "+
-                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.nm_perawatan "); 
+                   "(jns_perawatan.kd_jenis_prw like ? or jns_perawatan.nm_perawatan like ? or kategori_perawatan.nm_kategori like ?) order by jns_perawatan.kd_kategori, "+
+                   // MODIFIKASI: Custom sorting agar pasangan BIAYA SARANA KONSULTASI dan JASA KONSULTASI berdekatan dalam kategori yang sama
+                   "CASE "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'BIAYA SARANA KONSUL%' THEN 1 "+
+                   "  WHEN jns_perawatan.nm_perawatan LIKE 'JASA KONSUL%' THEN 2 "+
+                   "  ELSE 3 "+
+                   "END, "+
+                   "jns_perawatan.nm_perawatan "); 
             }
             
             try {
