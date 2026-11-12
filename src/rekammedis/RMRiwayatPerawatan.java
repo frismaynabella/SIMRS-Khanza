@@ -20745,16 +20745,20 @@ try{
                                                   "Nilai dan Keyakinan").append(
                                                   "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").append(
                                                       "<tr>").append(
-                                                         "<td width='100%' border='0' style='margin-left: 10px'>a. Penyakitnya Merupakan : ").append(rs2.getString("penyakitnya_merupakan")).append((rs2.getString("keterangan_penyakitnya_merupakan").equals("")?"":", "+rs2.getString("keterangan_penyakitnya_merupakan"))).append("</td>").append(
+                                                         // CUSTOM FORM EDUKASI (Ubah label Penyakitnya Merupakan → Agama)
+                                                         "<td width='100%' border='0' style='margin-left: 10px'>a. Agama : ").append(rs2.getString("penyakitnya_merupakan")).append((rs2.getString("keterangan_penyakitnya_merupakan").equals("")?"":", "+rs2.getString("keterangan_penyakitnya_merupakan"))).append("</td>").append(
                                                       "</tr>").append(
                                                       "<tr>").append(
-                                                         "<td width='100%' border='0' style='margin-left: 10px'>b. Keputusan Memilih Layanan Kesehatan : ").append(rs2.getString("keputusan_memilih_layanan")).append((rs2.getString("keterangan_keputusan_memilih_layanan").equals("")?"":", "+rs2.getString("keterangan_keputusan_memilih_layanan"))).append("</td>").append(
+                                                         // CUSTOM FORM EDUKASI (Ubah label Keputusan Memilih Layanan Kesehatan → Kegiatan Khusus)
+                                                         "<td width='100%' border='0' style='margin-left: 10px'>b. Kegiatan Khusus : ").append(rs2.getString("keputusan_memilih_layanan")).append((rs2.getString("keterangan_keputusan_memilih_layanan").equals("")?"":", "+rs2.getString("keterangan_keputusan_memilih_layanan"))).append("</td>").append(
                                                       "</tr>").append(
                                                       "<tr>").append(
-                                                         "<td width='100%' border='0' style='margin-left: 10px'>c. Keyakinan Terhadap Hasil Terapi : ").append(rs2.getString("keyakinan_terhadap_terapi")).append((rs2.getString("keterangan_keyakinan_terhadap_terapi").equals("")?"":", "+rs2.getString("keterangan_keyakinan_terhadap_terapi"))).append("</td>").append(
+                                                         // CUSTOM FORM EDUKASI (Ubah label Keyakinan Terhadap Hasil Terapi → Pantangan Khusus)
+                                                         "<td width='100%' border='0' style='margin-left: 10px'>c. Pantangan Khusus : ").append(rs2.getString("keyakinan_terhadap_terapi")).append((rs2.getString("keterangan_keyakinan_terhadap_terapi").equals("")?"":", "+rs2.getString("keterangan_keyakinan_terhadap_terapi"))).append("</td>").append(
                                                       "</tr>").append(
                                                       "<tr>").append(
-                                                         "<td width='100%' border='0' style='margin-left: 10px'>d. Aspek Keyakinan Yang Perlu Dipertimbangkan Selama Masa Perawatan : ").append(rs2.getString("aspek_keyakinan_dipertimbangkan")).append((rs2.getString("keterangan_aspek_keyakinan_dipertimbangkan").equals("")?"":", "+rs2.getString("keterangan_aspek_keyakinan_dipertimbangkan"))).append("</td>").append(
+                                                         // CUSTOM FORM EDUKASI (Ubah label Aspek Keyakinan Yang Perlu Dipertimbangkan Selama Masa Perawatan → Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan)
+                                                         "<td width='100%' border='0' style='margin-left: 10px'>d. Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan : ").append(rs2.getString("aspek_keyakinan_dipertimbangkan")).append((rs2.getString("keterangan_aspek_keyakinan_dipertimbangkan").equals("")?"":", "+rs2.getString("keterangan_aspek_keyakinan_dipertimbangkan"))).append("</td>").append(
                                                       "</tr>").append(
                                                   "</table>").append(
                                               "</td>").append(
