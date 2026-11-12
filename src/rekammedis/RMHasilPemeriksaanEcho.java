@@ -79,18 +79,25 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        // CUSTOM HASIL PEMERIKSAAN ECHO - Table Model dengan 45 kolom (7 metadata + 9 original + 18 history + 11 spectral)
         tabMode=new DefaultTableModel(null,new Object[]{
                 "No.Rawat","No.RM","Nama Pasien","Tgl.Lahir","Kode Dokter","Nama Dokter","Tanggal","F Sistolik LV","F Diastolic LV",
-                "Kontraktilitas RV","Dimensi Ruang Jantung","Katup-katup","Analisa Segmental","eRAP","Lain-lain","Kesimpulan"
+                "Kontraktilitas RV","Dimensi Ruang Jantung","Katup-katup","Analisa Segmental","eRAP","Lain-lain","Kesimpulan",
+                "Aorta","Left Atrium","RV Diastolic","Ejection Fraction","EPSS","LVOT Diameter",
+                "LV EDD","LV ESD","IVS Diastolic","LVPW Diastolic","TAPSE","RVOT",
+                "Aortic Sinus","Asc Aorta","Aortic Arcus","Desc Aorta","Abdominal Aorta","RVOT Diameter",
+                "Dec Time","E/A Ratio","TVG","m PAP","E'max","Ao Vmax",
+                "Ao VTI","TD LV E/e'","TD LV E/a'","IVC Diameter","IVC RaP"
             }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
-        
+
         tbObat.setModel(tabMode);
         tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 16; i++) {
+        // CUSTOM HASIL PEMERIKSAAN ECHO - Set column width untuk 45 kolom
+        for (i = 0; i < 45; i++) {
             TableColumn column = tbObat.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(105);
@@ -124,6 +131,12 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
                 column.setPreferredWidth(180);
             }else if(i==15){
                 column.setPreferredWidth(250);
+            }else if(i>=16 && i<=33){
+                // CUSTOM HASIL PEMERIKSAAN ECHO - 18 kolom HISTORY/CLINICAL DIAGNOSIS (width 100px)
+                column.setPreferredWidth(100);
+            }else if(i>=34 && i<=44){
+                // CUSTOM HASIL PEMERIKSAAN ECHO - 11 kolom SPECTRAL DOPPLER (width 100px)
+                column.setPreferredWidth(100);
             }
         }
         
@@ -476,7 +489,8 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
         FormInput.setBackground(new java.awt.Color(255, 255, 255));
         FormInput.setBorder(null);
         FormInput.setName("FormInput"); // NOI18N
-        FormInput.setPreferredSize(new java.awt.Dimension(750, 403));
+        // CUSTOM HASIL PEMERIKSAAN ECHO - Update height untuk mengakomodasi SPECTRAL DOPPLER + DESCRIPTION
+        FormInput.setPreferredSize(new java.awt.Dimension(750, 995));
         FormInput.setLayout(null);
 
         TNoRw.setHighlighter(null);
@@ -582,7 +596,7 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
         jLabel31.setText("Fungsi Sistolik LV :");
         jLabel31.setName("jLabel31"); // NOI18N
         FormInput.add(jLabel31);
-        jLabel31.setBounds(0, 80, 135, 23);
+        jLabel31.setBounds(0, 660, 135, 23);
 
         Sistolik.setFocusTraversalPolicyProvider(true);
         Sistolik.setName("Sistolik"); // NOI18N
@@ -592,7 +606,7 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(Sistolik);
-        Sistolik.setBounds(139, 80, 585, 23);
+        Sistolik.setBounds(139, 660, 585, 23);
 
         Katup.setFocusTraversalPolicyProvider(true);
         Katup.setName("Katup"); // NOI18N
@@ -602,17 +616,17 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(Katup);
-        Katup.setBounds(139, 200, 585, 23);
+        Katup.setBounds(139, 780, 585, 23);
 
         jLabel35.setText("Katup-katup :");
         jLabel35.setName("jLabel35"); // NOI18N
         FormInput.add(jLabel35);
-        jLabel35.setBounds(0, 200, 135, 23);
+        jLabel35.setBounds(0, 780, 135, 23);
 
         jLabel40.setText("Fungsi Diastolik LV :");
         jLabel40.setName("jLabel40"); // NOI18N
         FormInput.add(jLabel40);
-        jLabel40.setBounds(0, 110, 135, 23);
+        jLabel40.setBounds(0, 690, 135, 23);
 
         Diastolik.setFocusTraversalPolicyProvider(true);
         Diastolik.setName("Diastolik"); // NOI18N
@@ -622,13 +636,13 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(Diastolik);
-        Diastolik.setBounds(139, 110, 585, 23);
+        Diastolik.setBounds(139, 690, 585, 23);
 
         jLabel41.setText("Analisa Segmental :");
         jLabel41.setName("jLabel41"); // NOI18N
         jLabel41.setPreferredSize(new java.awt.Dimension(68, 14));
         FormInput.add(jLabel41);
-        jLabel41.setBounds(0, 230, 135, 23);
+        jLabel41.setBounds(0, 810, 135, 23);
 
         AnalisaSegmental.setFocusTraversalPolicyProvider(true);
         AnalisaSegmental.setName("AnalisaSegmental"); // NOI18N
@@ -638,7 +652,7 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(AnalisaSegmental);
-        AnalisaSegmental.setBounds(139, 230, 585, 23);
+        AnalisaSegmental.setBounds(139, 810, 585, 23);
 
         Dimensi.setFocusTraversalPolicyProvider(true);
         Dimensi.setName("Dimensi"); // NOI18N
@@ -648,17 +662,17 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(Dimensi);
-        Dimensi.setBounds(139, 170, 585, 23);
+        Dimensi.setBounds(139, 750, 585, 23);
 
         jLabel43.setText("Dimensi Ruang Jantung :");
         jLabel43.setName("jLabel43"); // NOI18N
         FormInput.add(jLabel43);
-        jLabel43.setBounds(0, 170, 135, 23);
+        jLabel43.setBounds(0, 750, 135, 23);
 
         jLabel44.setText("Kesimpulan :");
         jLabel44.setName("jLabel44"); // NOI18N
         FormInput.add(jLabel44);
-        jLabel44.setBounds(0, 320, 135, 23);
+        jLabel44.setBounds(0, 900, 135, 23);
 
         scrollPane17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPane17.setName("scrollPane17"); // NOI18N
@@ -675,13 +689,13 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
         scrollPane17.setViewportView(Kesimpulan);
 
         FormInput.add(scrollPane17);
-        scrollPane17.setBounds(139, 320, 585, 73);
+        scrollPane17.setBounds(139, 900, 585, 73);
 
         jLabel45.setText("eRAP :");
         jLabel45.setName("jLabel45"); // NOI18N
         jLabel45.setPreferredSize(new java.awt.Dimension(68, 14));
         FormInput.add(jLabel45);
-        jLabel45.setBounds(0, 260, 135, 23);
+        jLabel45.setBounds(0, 840, 135, 23);
 
         Erap.setFocusTraversalPolicyProvider(true);
         Erap.setName("Erap"); // NOI18N
@@ -691,12 +705,12 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(Erap);
-        Erap.setBounds(139, 260, 585, 23);
+        Erap.setBounds(139, 840, 585, 23);
 
         jLabel42.setText("Kontaktilitas RV :");
         jLabel42.setName("jLabel42"); // NOI18N
         FormInput.add(jLabel42);
-        jLabel42.setBounds(0, 140, 135, 23);
+        jLabel42.setBounds(0, 720, 135, 23);
 
         Kontraktilitas.setFocusTraversalPolicyProvider(true);
         Kontraktilitas.setName("Kontraktilitas"); // NOI18N
@@ -706,13 +720,13 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(Kontraktilitas);
-        Kontraktilitas.setBounds(139, 140, 585, 23);
+        Kontraktilitas.setBounds(139, 720, 585, 23);
 
         jLabel46.setText("Lain-lain :");
         jLabel46.setName("jLabel46"); // NOI18N
         jLabel46.setPreferredSize(new java.awt.Dimension(68, 14));
         FormInput.add(jLabel46);
-        jLabel46.setBounds(0, 290, 135, 23);
+        jLabel46.setBounds(0, 870, 135, 23);
 
         LainLain.setFocusTraversalPolicyProvider(true);
         LainLain.setName("LainLain"); // NOI18N
@@ -722,7 +736,616 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             }
         });
         FormInput.add(LainLain);
-        LainLain.setBounds(139, 290, 585, 23);
+        LainLain.setBounds(139, 870, 585, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Separator 1
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator2.setBackground(new java.awt.Color(239, 244, 234));
+        jSeparator2.setForeground(new java.awt.Color(239, 244, 234));
+        jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
+        jSeparator2.setName("jSeparator2"); // NOI18N
+        FormInput.add(jSeparator2);
+        jSeparator2.setBounds(0, 70, 750, 1);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Header Label
+        jLabelHistoryClinical = new widget.Label();
+        jLabelHistoryClinical.setText("HISTORY/CLINICAL DIAGNOSIS");
+        jLabelHistoryClinical.setName("jLabelHistoryClinical"); // NOI18N
+        jLabelHistoryClinical.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelHistoryClinical);
+        jLabelHistoryClinical.setBounds(0, 75, 750, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Sub-header Label
+        jLabel2DMode = new widget.Label();
+        jLabel2DMode.setText("2D/M Mode 31");
+        jLabel2DMode.setName("jLabel2DMode"); // NOI18N
+        jLabel2DMode.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        jLabel2DMode.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FormInput.add(jLabel2DMode);
+        jLabel2DMode.setBounds(0, 100, 750, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - KOLOM 1 (Kiri)
+        // 1. Aorta
+        jLabelAorta = new widget.Label();
+        jLabelAorta.setText("Aorta (20-30 mm) :");
+        jLabelAorta.setName("jLabelAorta"); // NOI18N
+        FormInput.add(jLabelAorta);
+        jLabelAorta.setBounds(0, 130, 140, 23);
+
+        Aorta = new widget.TextBox();
+        Aorta.setName("Aorta"); // NOI18N
+        Aorta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AortaKeyPressed(evt);
+            }
+        });
+        FormInput.add(Aorta);
+        Aorta.setBounds(145, 130, 100, 23);
+
+        // 2. Left Atrium
+        jLabelLeftAtrium = new widget.Label();
+        jLabelLeftAtrium.setText("Left Atrium (20-40 mm) :");
+        jLabelLeftAtrium.setName("jLabelLeftAtrium"); // NOI18N
+        FormInput.add(jLabelLeftAtrium);
+        jLabelLeftAtrium.setBounds(0, 160, 140, 23);
+
+        LeftAtrium = new widget.TextBox();
+        LeftAtrium.setName("LeftAtrium"); // NOI18N
+        LeftAtrium.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LeftAtriumKeyPressed(evt);
+            }
+        });
+        FormInput.add(LeftAtrium);
+        LeftAtrium.setBounds(145, 160, 100, 23);
+
+        // 3. RV Diastolic
+        jLabelRVDiastolic = new widget.Label();
+        jLabelRVDiastolic.setText("RV Diastolic (11-24 mm) :");
+        jLabelRVDiastolic.setName("jLabelRVDiastolic"); // NOI18N
+        FormInput.add(jLabelRVDiastolic);
+        jLabelRVDiastolic.setBounds(0, 190, 140, 23);
+
+        RVDiastolic = new widget.TextBox();
+        RVDiastolic.setName("RVDiastolic"); // NOI18N
+        RVDiastolic.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                RVDiastolicKeyPressed(evt);
+            }
+        });
+        FormInput.add(RVDiastolic);
+        RVDiastolic.setBounds(145, 190, 100, 23);
+
+        // 4. Ejection Fraction
+        jLabelEjectionFraction = new widget.Label();
+        jLabelEjectionFraction.setText("Ejection Fraction (53-77%) :");
+        jLabelEjectionFraction.setName("jLabelEjectionFraction"); // NOI18N
+        FormInput.add(jLabelEjectionFraction);
+        jLabelEjectionFraction.setBounds(0, 220, 140, 23);
+
+        EjectionFraction = new widget.TextBox();
+        EjectionFraction.setName("EjectionFraction"); // NOI18N
+        EjectionFraction.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EjectionFractionKeyPressed(evt);
+            }
+        });
+        FormInput.add(EjectionFraction);
+        EjectionFraction.setBounds(145, 220, 100, 23);
+
+        // 5. EPSS
+        jLabelEPSS = new widget.Label();
+        jLabelEPSS.setText("EPSS (0-6 mm) :");
+        jLabelEPSS.setName("jLabelEPSS"); // NOI18N
+        FormInput.add(jLabelEPSS);
+        jLabelEPSS.setBounds(0, 250, 140, 23);
+
+        EPSS = new widget.TextBox();
+        EPSS.setName("EPSS"); // NOI18N
+        EPSS.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EPSSKeyPressed(evt);
+            }
+        });
+        FormInput.add(EPSS);
+        EPSS.setBounds(145, 250, 100, 23);
+
+        // 6. LVOT Diameter
+        jLabelLVOTDiameter = new widget.Label();
+        jLabelLVOTDiameter.setText("LVOT Diameter (17-23 mm) :");
+        jLabelLVOTDiameter.setName("jLabelLVOTDiameter"); // NOI18N
+        FormInput.add(jLabelLVOTDiameter);
+        jLabelLVOTDiameter.setBounds(0, 280, 140, 23);
+
+        LVOTDiameter = new widget.TextBox();
+        LVOTDiameter.setName("LVOTDiameter"); // NOI18N
+        LVOTDiameter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LVOTDiameterKeyPressed(evt);
+            }
+        });
+        FormInput.add(LVOTDiameter);
+        LVOTDiameter.setBounds(145, 280, 100, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - KOLOM 2 (Tengah)
+        // 7. LV EDD
+        jLabelLVEDD = new widget.Label();
+        jLabelLVEDD.setText("LV EDD (37-55 mm) :");
+        jLabelLVEDD.setName("jLabelLVEDD"); // NOI18N
+        FormInput.add(jLabelLVEDD);
+        jLabelLVEDD.setBounds(250, 130, 140, 23);
+
+        LVEDD = new widget.TextBox();
+        LVEDD.setName("LVEDD"); // NOI18N
+        LVEDD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LVEDDKeyPressed(evt);
+            }
+        });
+        FormInput.add(LVEDD);
+        LVEDD.setBounds(395, 130, 100, 23);
+
+        // 8. LV ESD
+        jLabelLVESD = new widget.Label();
+        jLabelLVESD.setText("LV ESD (22-39 mm) :");
+        jLabelLVESD.setName("jLabelLVESD"); // NOI18N
+        FormInput.add(jLabelLVESD);
+        jLabelLVESD.setBounds(250, 160, 140, 23);
+
+        LVESD = new widget.TextBox();
+        LVESD.setName("LVESD"); // NOI18N
+        LVESD.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LVESDKeyPressed(evt);
+            }
+        });
+        FormInput.add(LVESD);
+        LVESD.setBounds(395, 160, 100, 23);
+
+        // 9. IVS Diastolic
+        jLabelIVSDiastolic = new widget.Label();
+        jLabelIVSDiastolic.setText("IVS Diastolic (6-12 mm) :");
+        jLabelIVSDiastolic.setName("jLabelIVSDiastolic"); // NOI18N
+        FormInput.add(jLabelIVSDiastolic);
+        jLabelIVSDiastolic.setBounds(250, 190, 140, 23);
+
+        IVSDiastolic = new widget.TextBox();
+        IVSDiastolic.setName("IVSDiastolic"); // NOI18N
+        IVSDiastolic.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IVSDiastolicKeyPressed(evt);
+            }
+        });
+        FormInput.add(IVSDiastolic);
+        IVSDiastolic.setBounds(395, 190, 100, 23);
+
+        // 10. LVPW Diastolic
+        jLabelLVPWDiastolic = new widget.Label();
+        jLabelLVPWDiastolic.setText("LVPW Diastolic (6-12 mm) :");
+        jLabelLVPWDiastolic.setName("jLabelLVPWDiastolic"); // NOI18N
+        FormInput.add(jLabelLVPWDiastolic);
+        jLabelLVPWDiastolic.setBounds(250, 220, 140, 23);
+
+        LVPWDiastolic = new widget.TextBox();
+        LVPWDiastolic.setName("LVPWDiastolic"); // NOI18N
+        LVPWDiastolic.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                LVPWDiastolicKeyPressed(evt);
+            }
+        });
+        FormInput.add(LVPWDiastolic);
+        LVPWDiastolic.setBounds(395, 220, 100, 23);
+
+        // 11. TAPSE
+        jLabelTAPSE = new widget.Label();
+        jLabelTAPSE.setText("TAPSE (15-30 mm) :");
+        jLabelTAPSE.setName("jLabelTAPSE"); // NOI18N
+        FormInput.add(jLabelTAPSE);
+        jLabelTAPSE.setBounds(250, 250, 140, 23);
+
+        TAPSE = new widget.TextBox();
+        TAPSE.setName("TAPSE"); // NOI18N
+        TAPSE.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TAPSEKeyPressed(evt);
+            }
+        });
+        FormInput.add(TAPSE);
+        TAPSE.setBounds(395, 250, 100, 23);
+
+        // 12. RVOT
+        jLabelRVOT = new widget.Label();
+        jLabelRVOT.setText("RVOT (20-30 mm) :");
+        jLabelRVOT.setName("jLabelRVOT"); // NOI18N
+        FormInput.add(jLabelRVOT);
+        jLabelRVOT.setBounds(250, 280, 140, 23);
+
+        RVOT = new widget.TextBox();
+        RVOT.setName("RVOT"); // NOI18N
+        RVOT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                RVOTKeyPressed(evt);
+            }
+        });
+        FormInput.add(RVOT);
+        RVOT.setBounds(395, 280, 100, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - KOLOM 3 (Kanan)
+        // 13. Aortic Sinus
+        jLabelAorticSinus = new widget.Label();
+        jLabelAorticSinus.setText("Aortic Sinus (20-40 mm) :");
+        jLabelAorticSinus.setName("jLabelAorticSinus"); // NOI18N
+        FormInput.add(jLabelAorticSinus);
+        jLabelAorticSinus.setBounds(500, 130, 150, 23);
+
+        AorticSinus = new widget.TextBox();
+        AorticSinus.setName("AorticSinus"); // NOI18N
+        AorticSinus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AorticSinusKeyPressed(evt);
+            }
+        });
+        FormInput.add(AorticSinus);
+        AorticSinus.setBounds(655, 130, 100, 23);
+
+        // 14. Asc Aorta
+        jLabelAscAorta = new widget.Label();
+        jLabelAscAorta.setText("Asc Aorta (20-40 mm) :");
+        jLabelAscAorta.setName("jLabelAscAorta"); // NOI18N
+        FormInput.add(jLabelAscAorta);
+        jLabelAscAorta.setBounds(500, 160, 150, 23);
+
+        AscAorta = new widget.TextBox();
+        AscAorta.setName("AscAorta"); // NOI18N
+        AscAorta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AscAortaKeyPressed(evt);
+            }
+        });
+        FormInput.add(AscAorta);
+        AscAorta.setBounds(655, 160, 100, 23);
+
+        // 15. Aortic Arcus
+        jLabelAorticArcus = new widget.Label();
+        jLabelAorticArcus.setText("Aortic Arcus (18-40 mm) :");
+        jLabelAorticArcus.setName("jLabelAorticArcus"); // NOI18N
+        FormInput.add(jLabelAorticArcus);
+        jLabelAorticArcus.setBounds(500, 190, 150, 23);
+
+        AorticArcus = new widget.TextBox();
+        AorticArcus.setName("AorticArcus"); // NOI18N
+        AorticArcus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AorticArcusKeyPressed(evt);
+            }
+        });
+        FormInput.add(AorticArcus);
+        AorticArcus.setBounds(655, 190, 100, 23);
+
+        // 16. Desc Aorta
+        jLabelDescAorta = new widget.Label();
+        jLabelDescAorta.setText("Desc Aorta (18-30 mm) :");
+        jLabelDescAorta.setName("jLabelDescAorta"); // NOI18N
+        FormInput.add(jLabelDescAorta);
+        jLabelDescAorta.setBounds(500, 220, 150, 23);
+
+        DescAorta = new widget.TextBox();
+        DescAorta.setName("DescAorta"); // NOI18N
+        DescAorta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DescAortaKeyPressed(evt);
+            }
+        });
+        FormInput.add(DescAorta);
+        DescAorta.setBounds(655, 220, 100, 23);
+
+        // 17. Abdominal Aorta
+        jLabelAbdominalAorta = new widget.Label();
+        jLabelAbdominalAorta.setText("Abdominal Aorta (15-30 mm) :");
+        jLabelAbdominalAorta.setName("jLabelAbdominalAorta"); // NOI18N
+        FormInput.add(jLabelAbdominalAorta);
+        jLabelAbdominalAorta.setBounds(500, 250, 150, 23);
+
+        AbdominalAorta = new widget.TextBox();
+        AbdominalAorta.setName("AbdominalAorta"); // NOI18N
+        AbdominalAorta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AbdominalAortaKeyPressed(evt);
+            }
+        });
+        FormInput.add(AbdominalAorta);
+        AbdominalAorta.setBounds(655, 250, 100, 23);
+
+        // 18. RVOT Diameter
+        jLabelRVOTDiameter = new widget.Label();
+        jLabelRVOTDiameter.setText("RVOT Diameter (17-23 mm) :");
+        jLabelRVOTDiameter.setName("jLabelRVOTDiameter"); // NOI18N
+        FormInput.add(jLabelRVOTDiameter);
+        jLabelRVOTDiameter.setBounds(500, 280, 150, 23);
+
+        RVOTDiameter = new widget.TextBox();
+        RVOTDiameter.setName("RVOTDiameter"); // NOI18N
+        RVOTDiameter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                RVOTDiameterKeyPressed(evt);
+            }
+        });
+        FormInput.add(RVOTDiameter);
+        RVOTDiameter.setBounds(655, 280, 100, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Separator 2 (penutup)
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator3.setBackground(new java.awt.Color(239, 244, 234));
+        jSeparator3.setForeground(new java.awt.Color(239, 244, 234));
+        jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
+        jSeparator3.setName("jSeparator3"); // NOI18N
+        FormInput.add(jSeparator3);
+        jSeparator3.setBounds(0, 310, 750, 1);
+        // END CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Header
+        jLabelSpectralDoppler = new widget.Label();
+        jLabelSpectralDoppler.setText("SPECTRAL DOPPLER");
+        jLabelSpectralDoppler.setName("jLabelSpectralDoppler"); // NOI18N
+        jLabelSpectralDoppler.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelSpectralDoppler);
+        jLabelSpectralDoppler.setBounds(0, 315, 750, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - KOLOM KIRI
+        // Sub-header: Mitral Inflow
+        jLabelMitralInflow = new widget.Label();
+        jLabelMitralInflow.setText("Mitral Inflow");
+        jLabelMitralInflow.setName("jLabelMitralInflow"); // NOI18N
+        jLabelMitralInflow.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelMitralInflow);
+        jLabelMitralInflow.setBounds(0, 340, 180, 23);
+
+        // 1. Dec Time
+        jLabelDecTime = new widget.Label();
+        jLabelDecTime.setText("Dec Time (m/sec) :");
+        jLabelDecTime.setName("jLabelDecTime"); // NOI18N
+        FormInput.add(jLabelDecTime);
+        jLabelDecTime.setBounds(0, 365, 180, 23);
+
+        DecTime = new widget.TextBox();
+        DecTime.setName("DecTime"); // NOI18N
+        DecTime.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                DecTimeKeyPressed(evt);
+            }
+        });
+        FormInput.add(DecTime);
+        DecTime.setBounds(185, 365, 100, 23);
+
+        // 2. E/A
+        jLabelEARatio = new widget.Label();
+        jLabelEARatio.setText("E/A :");
+        jLabelEARatio.setName("jLabelEARatio"); // NOI18N
+        FormInput.add(jLabelEARatio);
+        jLabelEARatio.setBounds(0, 395, 180, 23);
+
+        EARatio = new widget.TextBox();
+        EARatio.setName("EARatio"); // NOI18N
+        EARatio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EARatioKeyPressed(evt);
+            }
+        });
+        FormInput.add(EARatio);
+        EARatio.setBounds(185, 395, 100, 23);
+
+        // Sub-header: Tricuspid Regurgitation
+        jLabelTricuspidRegurgitation = new widget.Label();
+        jLabelTricuspidRegurgitation.setText("Tricuspid Regurgitation");
+        jLabelTricuspidRegurgitation.setName("jLabelTricuspidRegurgitation"); // NOI18N
+        jLabelTricuspidRegurgitation.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelTricuspidRegurgitation);
+        jLabelTricuspidRegurgitation.setBounds(0, 425, 200, 23);
+
+        // 3. TVG
+        jLabelTVG = new widget.Label();
+        jLabelTVG.setText("TVG (mmHg) :");
+        jLabelTVG.setName("jLabelTVG"); // NOI18N
+        FormInput.add(jLabelTVG);
+        jLabelTVG.setBounds(0, 450, 180, 23);
+
+        TVG = new widget.TextBox();
+        TVG.setName("TVG"); // NOI18N
+        TVG.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TVGKeyPressed(evt);
+            }
+        });
+        FormInput.add(TVG);
+        TVG.setBounds(185, 450, 100, 23);
+
+        // Sub-header: Pulmonary
+        jLabelPulmonary = new widget.Label();
+        jLabelPulmonary.setText("Pulmonary");
+        jLabelPulmonary.setName("jLabelPulmonary"); // NOI18N
+        jLabelPulmonary.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelPulmonary);
+        jLabelPulmonary.setBounds(0, 480, 180, 23);
+
+        // 4. m PAP
+        jLabelMPAP = new widget.Label();
+        jLabelMPAP.setText("m PAP (mmHg) :");
+        jLabelMPAP.setName("jLabelMPAP"); // NOI18N
+        FormInput.add(jLabelMPAP);
+        jLabelMPAP.setBounds(0, 505, 180, 23);
+
+        MPAP = new widget.TextBox();
+        MPAP.setName("MPAP"); // NOI18N
+        MPAP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MPAPKeyPressed(evt);
+            }
+        });
+        FormInput.add(MPAP);
+        MPAP.setBounds(185, 505, 100, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - KOLOM KANAN
+        // Sub-header: Tissue Doppler
+        jLabelTissueDoppler = new widget.Label();
+        jLabelTissueDoppler.setText("Tissue Doppler");
+        jLabelTissueDoppler.setName("jLabelTissueDoppler"); // NOI18N
+        jLabelTissueDoppler.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelTissueDoppler);
+        jLabelTissueDoppler.setBounds(400, 340, 180, 23);
+
+        // 5. E'max
+        jLabelEmax = new widget.Label();
+        jLabelEmax.setText("E'max (m/s) :");
+        jLabelEmax.setName("jLabelEmax"); // NOI18N
+        FormInput.add(jLabelEmax);
+        jLabelEmax.setBounds(400, 365, 180, 23);
+
+        Emax = new widget.TextBox();
+        Emax.setName("Emax"); // NOI18N
+        Emax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                EmaxKeyPressed(evt);
+            }
+        });
+        FormInput.add(Emax);
+        Emax.setBounds(585, 365, 100, 23);
+
+        // 6. Ao Vmax
+        jLabelAoVmax = new widget.Label();
+        jLabelAoVmax.setText("Ao Vmax (m/s) :");
+        jLabelAoVmax.setName("jLabelAoVmax"); // NOI18N
+        FormInput.add(jLabelAoVmax);
+        jLabelAoVmax.setBounds(400, 395, 180, 23);
+
+        AoVmax = new widget.TextBox();
+        AoVmax.setName("AoVmax"); // NOI18N
+        AoVmax.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AoVmaxKeyPressed(evt);
+            }
+        });
+        FormInput.add(AoVmax);
+        AoVmax.setBounds(585, 395, 100, 23);
+
+        // 7. Ao VTI
+        jLabelAoVTI = new widget.Label();
+        jLabelAoVTI.setText("Ao VTI (cm) :");
+        jLabelAoVTI.setName("jLabelAoVTI"); // NOI18N
+        FormInput.add(jLabelAoVTI);
+        jLabelAoVTI.setBounds(400, 425, 180, 23);
+
+        AoVTI = new widget.TextBox();
+        AoVTI.setName("AoVTI"); // NOI18N
+        AoVTI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                AoVTIKeyPressed(evt);
+            }
+        });
+        FormInput.add(AoVTI);
+        AoVTI.setBounds(585, 425, 100, 23);
+
+        // Sub-header: Tissue Doppler LV
+        jLabelTissueDopplerLV = new widget.Label();
+        jLabelTissueDopplerLV.setText("Tissue Doppler LV");
+        jLabelTissueDopplerLV.setName("jLabelTissueDopplerLV"); // NOI18N
+        jLabelTissueDopplerLV.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelTissueDopplerLV);
+        jLabelTissueDopplerLV.setBounds(400, 455, 180, 23);
+
+        // 8. E/E'
+        jLabelTDLVEE = new widget.Label();
+        jLabelTDLVEE.setText("E/E' :");
+        jLabelTDLVEE.setName("jLabelTDLVEE"); // NOI18N
+        FormInput.add(jLabelTDLVEE);
+        jLabelTDLVEE.setBounds(400, 480, 180, 23);
+
+        TDLVEE = new widget.TextBox();
+        TDLVEE.setName("TDLVEE"); // NOI18N
+        TDLVEE.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TDLVEEKeyPressed(evt);
+            }
+        });
+        FormInput.add(TDLVEE);
+        TDLVEE.setBounds(585, 480, 100, 23);
+
+        // 9. E'/A'
+        jLabelTDLVEA = new widget.Label();
+        jLabelTDLVEA.setText("E'/A' :");
+        jLabelTDLVEA.setName("jLabelTDLVEA"); // NOI18N
+        FormInput.add(jLabelTDLVEA);
+        jLabelTDLVEA.setBounds(400, 510, 180, 23);
+
+        TDLVEA = new widget.TextBox();
+        TDLVEA.setName("TDLVEA"); // NOI18N
+        TDLVEA.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TDLVEAKeyPressed(evt);
+            }
+        });
+        FormInput.add(TDLVEA);
+        TDLVEA.setBounds(585, 510, 100, 23);
+
+        // Sub-header: Inferior Cava Vein
+        jLabelInferiorCavaVein = new widget.Label();
+        jLabelInferiorCavaVein.setText("Inferior Cava Vein");
+        jLabelInferiorCavaVein.setName("jLabelInferiorCavaVein"); // NOI18N
+        jLabelInferiorCavaVein.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelInferiorCavaVein);
+        jLabelInferiorCavaVein.setBounds(400, 540, 180, 23);
+
+        // 10. Diameter
+        jLabelIVCDiameter = new widget.Label();
+        jLabelIVCDiameter.setText("Diameter (mm) :");
+        jLabelIVCDiameter.setName("jLabelIVCDiameter"); // NOI18N
+        FormInput.add(jLabelIVCDiameter);
+        jLabelIVCDiameter.setBounds(400, 565, 180, 23);
+
+        IVCDiameter = new widget.TextBox();
+        IVCDiameter.setName("IVCDiameter"); // NOI18N
+        IVCDiameter.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IVCDiameterKeyPressed(evt);
+            }
+        });
+        FormInput.add(IVCDiameter);
+        IVCDiameter.setBounds(585, 565, 100, 23);
+
+        // 11. RaP
+        jLabelIVCRaP = new widget.Label();
+        jLabelIVCRaP.setText("RaP :");
+        jLabelIVCRaP.setName("jLabelIVCRaP"); // NOI18N
+        FormInput.add(jLabelIVCRaP);
+        jLabelIVCRaP.setBounds(400, 595, 180, 23);
+
+        IVCRaP = new widget.TextBox();
+        IVCRaP.setName("IVCRaP"); // NOI18N
+        IVCRaP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                IVCRaPKeyPressed(evt);
+            }
+        });
+        FormInput.add(IVCRaP);
+        IVCRaP.setBounds(585, 595, 100, 23);
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Separator (penutup)
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator4.setBackground(new java.awt.Color(239, 244, 234));
+        jSeparator4.setForeground(new java.awt.Color(239, 244, 234));
+        jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(239, 244, 234)));
+        jSeparator4.setName("jSeparator4"); // NOI18N
+        FormInput.add(jSeparator4);
+        jSeparator4.setBounds(0, 625, 750, 1);
+        // END CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER
+
+        // CUSTOM HASIL PEMERIKSAAN ECHO - DESCRIPTION - Header
+        jLabelDescription = new widget.Label();
+        jLabelDescription.setText("DESCRIPTION");
+        jLabelDescription.setName("jLabelDescription"); // NOI18N
+        jLabelDescription.setFont(new java.awt.Font("Tahoma", 1, 11)); // Bold
+        FormInput.add(jLabelDescription);
+        jLabelDescription.setBounds(0, 630, 750, 23);
+        // END CUSTOM HASIL PEMERIKSAAN ECHO - DESCRIPTION
 
         scrollInput.setViewportView(FormInput);
 
@@ -1326,12 +1949,60 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",tbObat.getValueAt(tbObat.getSelectedRow(),4).toString());
             param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+tbObat.getValueAt(tbObat.getSelectedRow(),5).toString()+"\nID "+(finger.equals("")?tbObat.getValueAt(tbObat.getSelectedRow(),4).toString():finger)+"\n"+Valid.SetTgl3(tbObat.getValueAt(tbObat.getSelectedRow(),6).toString())); 
             param.put("hasil","http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/hasilpemeriksaanecho/"+Sequel.cariIsi("select hasil_pemeriksaan_echo_gambar.photo from hasil_pemeriksaan_echo_gambar where hasil_pemeriksaan_echo_gambar.no_rawat=?",tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()));
+
+            // ============================================================================
+            // CUSTOM REPORT ECHO - 25 Juni 2026
+            // ============================================================================
+            // TOTAL: 41 kolom (12 kolom original + 29 kolom custom)
+            //
+            // KOLOM ORIGINAL (12):
+            // - no_rawat, no_rkm_medis, nm_pasien, tgl_lahir, tanggal
+            // - kd_dokter, nm_dokter
+            // - sistolik, diastolic, kontraktilitas, dimensi_ruang
+            // - katup, analisa_segmental, erap, lain_lain, kesimpulan
+            //
+            // KOLOM CUSTOM - HISTORY/CLINICAL DIAGNOSIS (18):
+            // - aorta, left_atrium, rv_diastolic, ejection_fraction
+            // - epss, lvot_diameter, lv_edd, lv_esd
+            // - ivs_diastolic, lvpw_diastolic, tapse, rvot
+            // - aortic_sinus, asc_aorta, aortic_arcus, desc_aorta
+            // - abdominal_aorta, rvot_diameter
+            //
+            // KOLOM CUSTOM - SPECTRAL DOPPLER (11):
+            // - dec_time, ea_ratio, tvg, m_pap
+            // - emax, ao_vmax, ao_vti
+            // - td_lv_ee, td_lv_ea
+            // - ivc_diameter, ivc_rap
+            //
+            // REFERENSI SQL:
+            // - custom_penambahan_history_clinical_diagnosis.sql (18 kolom)
+            // - custom_penambahan_spectral_doppler.sql (11 kolom)
+            //
+            // ⚠️ PENTING - JIKA CUSTOM LAGI:
+            // Query ini HARUS SINKRON dengan query di file:
+            // - report/rptCetakHasilPemeriksaanECHO.jrxml (queryString)
+            // Jika menambah/mengurangi kolom di report, UPDATE JUGA QUERY DI SINI!
+            // Jika tidak sinkron akan error: "Unknown column name ... in result set"
+            // ============================================================================
+
             Valid.MyReportqry("rptCetakHasilPemeriksaanECHO.jasper","report","::[ Formulir Hasil Pemeriksaan ECHOCARDIOGRAFI ]::",
                             "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,pasien.tgl_lahir,hasil_pemeriksaan_echo.tanggal,"+
                             "hasil_pemeriksaan_echo.kd_dokter,dokter.nm_dokter,"+
+                            // Original fields (12 kolom)
                             "hasil_pemeriksaan_echo.sistolik,hasil_pemeriksaan_echo.diastolic,hasil_pemeriksaan_echo.kontraktilitas,hasil_pemeriksaan_echo.dimensi_ruang,"+
                             "hasil_pemeriksaan_echo.katup,hasil_pemeriksaan_echo.analisa_segmental,hasil_pemeriksaan_echo.erap,hasil_pemeriksaan_echo.lain_lain,"+
-                            "hasil_pemeriksaan_echo.kesimpulan from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                            "hasil_pemeriksaan_echo.kesimpulan,"+
+                            // CUSTOM: HISTORY/CLINICAL DIAGNOSIS (18 kolom) - 25 Juni 2026
+                            "hasil_pemeriksaan_echo.aorta,hasil_pemeriksaan_echo.left_atrium,hasil_pemeriksaan_echo.rv_diastolic,hasil_pemeriksaan_echo.ejection_fraction,"+
+                            "hasil_pemeriksaan_echo.epss,hasil_pemeriksaan_echo.lvot_diameter,hasil_pemeriksaan_echo.lv_edd,hasil_pemeriksaan_echo.lv_esd,"+
+                            "hasil_pemeriksaan_echo.ivs_diastolic,hasil_pemeriksaan_echo.lvpw_diastolic,hasil_pemeriksaan_echo.tapse,hasil_pemeriksaan_echo.rvot,"+
+                            "hasil_pemeriksaan_echo.aortic_sinus,hasil_pemeriksaan_echo.asc_aorta,hasil_pemeriksaan_echo.aortic_arcus,hasil_pemeriksaan_echo.desc_aorta,"+
+                            "hasil_pemeriksaan_echo.abdominal_aorta,hasil_pemeriksaan_echo.rvot_diameter,"+
+                            // CUSTOM: SPECTRAL DOPPLER (11 kolom) - 25 Juni 2026
+                            "hasil_pemeriksaan_echo.dec_time,hasil_pemeriksaan_echo.ea_ratio,hasil_pemeriksaan_echo.tvg,hasil_pemeriksaan_echo.m_pap,"+
+                            "hasil_pemeriksaan_echo.emax,hasil_pemeriksaan_echo.ao_vmax,hasil_pemeriksaan_echo.ao_vti,hasil_pemeriksaan_echo.td_lv_ee,"+
+                            "hasil_pemeriksaan_echo.td_lv_ea,hasil_pemeriksaan_echo.ivc_diameter,hasil_pemeriksaan_echo.ivc_rap "+
+                            "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                             "inner join hasil_pemeriksaan_echo on reg_periksa.no_rawat=hasil_pemeriksaan_echo.no_rawat "+
                             "inner join dokter on hasil_pemeriksaan_echo.kd_dokter=dokter.kd_dokter where hasil_pemeriksaan_echo.no_rawat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"'",param);
         }
@@ -1380,8 +2051,128 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     }//GEN-LAST:event_KontraktilitasKeyPressed
 
     private void LainLainKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_LainLainKeyPressed
-        Valid.pindah(evt,Erap,Kesimpulan);
+        Valid.pindah(evt,Erap,Aorta);
     }//GEN-LAST:event_LainLainKeyPressed
+
+    // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - KeyPressed Event Handlers
+    private void AortaKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,LainLain,LeftAtrium);
+    }
+
+    private void LeftAtriumKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,Aorta,RVDiastolic);
+    }
+
+    private void RVDiastolicKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,LeftAtrium,EjectionFraction);
+    }
+
+    private void EjectionFractionKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,RVDiastolic,EPSS);
+    }
+
+    private void EPSSKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,EjectionFraction,LVOTDiameter);
+    }
+
+    private void LVOTDiameterKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,EPSS,LVEDD);
+    }
+
+    private void LVEDDKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,LVOTDiameter,LVESD);
+    }
+
+    private void LVESDKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,LVEDD,IVSDiastolic);
+    }
+
+    private void IVSDiastolicKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,LVESD,LVPWDiastolic);
+    }
+
+    private void LVPWDiastolicKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,IVSDiastolic,TAPSE);
+    }
+
+    private void TAPSEKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,LVPWDiastolic,RVOT);
+    }
+
+    private void RVOTKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,TAPSE,AorticSinus);
+    }
+
+    private void AorticSinusKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,RVOT,AscAorta);
+    }
+
+    private void AscAortaKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,AorticSinus,AorticArcus);
+    }
+
+    private void AorticArcusKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,AscAorta,DescAorta);
+    }
+
+    private void DescAortaKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,AorticArcus,AbdominalAorta);
+    }
+
+    private void AbdominalAortaKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,DescAorta,RVOTDiameter);
+    }
+
+    private void RVOTDiameterKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,AbdominalAorta,DecTime);
+    }
+    // END CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - KeyPressed Event Handlers
+
+    // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - KeyPressed Event Handlers
+    private void DecTimeKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,RVOTDiameter,EARatio);
+    }
+
+    private void EARatioKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,DecTime,TVG);
+    }
+
+    private void TVGKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,EARatio,MPAP);
+    }
+
+    private void MPAPKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,TVG,Emax);
+    }
+
+    private void EmaxKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,MPAP,AoVmax);
+    }
+
+    private void AoVmaxKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,Emax,AoVTI);
+    }
+
+    private void AoVTIKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,AoVmax,TDLVEE);
+    }
+
+    private void TDLVEEKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,AoVTI,TDLVEA);
+    }
+
+    private void TDLVEAKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,TDLVEE,IVCDiameter);
+    }
+
+    private void IVCDiameterKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,TDLVEA,IVCRaP);
+    }
+
+    private void IVCRaPKeyPressed(java.awt.event.KeyEvent evt) {
+        Valid.pindah(evt,IVCDiameter,Kesimpulan);
+    }
+    // END CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - KeyPressed Event Handlers
 
     private void btnAmbilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAmbilActionPerformed
         if(tabMode.getRowCount()==0){
@@ -1520,7 +2311,13 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - 2D/M Mode 31 - Variable Declaration
+    private widget.TextBox AbdominalAorta;
     private widget.TextBox AnalisaSegmental;
+    private widget.TextBox Aorta;
+    private widget.TextBox AorticArcus;
+    private widget.TextBox AorticSinus;
+    private widget.TextBox AscAorta;
     private widget.Button BtnAll;
     private widget.Button BtnBatal;
     private widget.Button BtnCari;
@@ -1534,8 +2331,11 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     private widget.CekBox ChkAccor;
     private widget.Tanggal DTPCari1;
     private widget.Tanggal DTPCari2;
+    private widget.TextBox DescAorta;
     private widget.TextBox Diastolik;
     private widget.TextBox Dimensi;
+    private widget.TextBox EPSS;
+    private widget.TextBox EjectionFraction;
     private widget.TextBox Erap;
     private widget.PanelBiasa FormInput;
     private widget.PanelBiasa FormOrthan;
@@ -1544,18 +2344,28 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     private widget.TextBox Katup;
     private widget.TextBox KdDokter;
     private widget.TextArea Kesimpulan;
+    private widget.TextBox IVSDiastolic;
     private widget.TextBox Kontraktilitas;
     private widget.Label LCount;
+    private widget.TextBox LVEDD;
+    private widget.TextBox LVESD;
+    private widget.TextBox LVOTDiameter;
+    private widget.TextBox LVPWDiastolic;
     private widget.TextBox LainLain;
+    private widget.TextBox LeftAtrium;
     private widget.editorpane LoadHTML;
     private widget.editorpane LoadHTML2;
     private widget.MenuItem MnPenilaianMedis;
     private widget.TextBox NmDokter;
     private widget.PanelBiasa PanelAccor;
+    private widget.TextBox RVOT;
+    private widget.TextBox RVDiastolic;
+    private widget.TextBox RVOTDiameter;
     private widget.ScrollPane Scroll;
     private widget.ScrollPane Scroll5;
     private widget.ScrollPane Scroll6;
     private widget.TextBox Sistolik;
+    private widget.TextBox TAPSE;
     private widget.TextBox TCari;
     private widget.TextBox TNoRM;
     private widget.TextBox TNoRw;
@@ -1573,6 +2383,26 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     private widget.InternalFrame internalFrame3;
     private widget.Label jLabel10;
     private widget.Label jLabel19;
+    private widget.Label jLabel2DMode;
+    private widget.Label jLabelAbdominalAorta;
+    private widget.Label jLabelAorta;
+    private widget.Label jLabelAorticArcus;
+    private widget.Label jLabelAorticSinus;
+    private widget.Label jLabelAscAorta;
+    private widget.Label jLabelDescAorta;
+    private widget.Label jLabelEPSS;
+    private widget.Label jLabelEjectionFraction;
+    private widget.Label jLabelHistoryClinical;
+    private widget.Label jLabelIVSDiastolic;
+    private widget.Label jLabelLVEDD;
+    private widget.Label jLabelLVESD;
+    private widget.Label jLabelLVOTDiameter;
+    private widget.Label jLabelLVPWDiastolic;
+    private widget.Label jLabelLeftAtrium;
+    private widget.Label jLabelRVDiastolic;
+    private widget.Label jLabelRVOT;
+    private widget.Label jLabelRVOTDiameter;
+    private widget.Label jLabelTAPSE;
     private widget.Label jLabel21;
     private widget.Label jLabel31;
     private widget.Label jLabel35;
@@ -1588,6 +2418,41 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     private widget.Label jLabel8;
     private widget.PopupMenu jPopupMenu1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private widget.Label jLabelSpectralDoppler;
+    private widget.Label jLabelDescription;
+    // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Variable Declaration
+    private widget.TextBox DecTime;
+    private widget.TextBox EARatio;
+    private widget.TextBox TVG;
+    private widget.TextBox MPAP;
+    private widget.TextBox Emax;
+    private widget.TextBox AoVmax;
+    private widget.TextBox AoVTI;
+    private widget.TextBox TDLVEE;
+    private widget.TextBox TDLVEA;
+    private widget.TextBox IVCDiameter;
+    private widget.TextBox IVCRaP;
+    private widget.Label jLabelDecTime;
+    private widget.Label jLabelEARatio;
+    private widget.Label jLabelTVG;
+    private widget.Label jLabelMPAP;
+    private widget.Label jLabelEmax;
+    private widget.Label jLabelAoVmax;
+    private widget.Label jLabelAoVTI;
+    private widget.Label jLabelTDLVEE;
+    private widget.Label jLabelTDLVEA;
+    private widget.Label jLabelIVCDiameter;
+    private widget.Label jLabelIVCRaP;
+    private widget.Label jLabelMitralInflow;
+    private widget.Label jLabelTricuspidRegurgitation;
+    private widget.Label jLabelPulmonary;
+    private widget.Label jLabelTissueDoppler;
+    private widget.Label jLabelTissueDopplerLV;
+    private widget.Label jLabelInferiorCavaVein;
+    // END CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Variable Declaration
     private widget.Label label11;
     private widget.Label label14;
     private widget.panelisi panelGlass7;
@@ -1603,28 +2468,48 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
         Valid.tabelKosong(tabMode);
         try{
             if(TCari.getText().trim().equals("")){
+                // CUSTOM HASIL PEMERIKSAAN ECHO - SELECT dengan 41 field (12 original + 18 history + 11 spectral)
                 ps=koneksi.prepareStatement(
                             "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,pasien.tgl_lahir,hasil_pemeriksaan_echo.tanggal,"+
                             "hasil_pemeriksaan_echo.kd_dokter,dokter.nm_dokter,"+
                             "hasil_pemeriksaan_echo.sistolik,hasil_pemeriksaan_echo.diastolic,hasil_pemeriksaan_echo.kontraktilitas,hasil_pemeriksaan_echo.dimensi_ruang,"+
                             "hasil_pemeriksaan_echo.katup,hasil_pemeriksaan_echo.analisa_segmental,hasil_pemeriksaan_echo.erap,hasil_pemeriksaan_echo.lain_lain,"+
-                            "hasil_pemeriksaan_echo.kesimpulan from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                            "hasil_pemeriksaan_echo.kesimpulan,"+
+                            "hasil_pemeriksaan_echo.aorta,hasil_pemeriksaan_echo.left_atrium,hasil_pemeriksaan_echo.rv_diastolic,hasil_pemeriksaan_echo.ejection_fraction,"+
+                            "hasil_pemeriksaan_echo.epss,hasil_pemeriksaan_echo.lvot_diameter,hasil_pemeriksaan_echo.lv_edd,hasil_pemeriksaan_echo.lv_esd,"+
+                            "hasil_pemeriksaan_echo.ivs_diastolic,hasil_pemeriksaan_echo.lvpw_diastolic,hasil_pemeriksaan_echo.tapse,hasil_pemeriksaan_echo.rvot,"+
+                            "hasil_pemeriksaan_echo.aortic_sinus,hasil_pemeriksaan_echo.asc_aorta,hasil_pemeriksaan_echo.aortic_arcus,hasil_pemeriksaan_echo.desc_aorta,"+
+                            "hasil_pemeriksaan_echo.abdominal_aorta,hasil_pemeriksaan_echo.rvot_diameter,"+
+                            "hasil_pemeriksaan_echo.dec_time,hasil_pemeriksaan_echo.ea_ratio,hasil_pemeriksaan_echo.tvg,hasil_pemeriksaan_echo.m_pap,"+
+                            "hasil_pemeriksaan_echo.emax,hasil_pemeriksaan_echo.ao_vmax,hasil_pemeriksaan_echo.ao_vti,hasil_pemeriksaan_echo.td_lv_ee,"+
+                            "hasil_pemeriksaan_echo.td_lv_ea,hasil_pemeriksaan_echo.ivc_diameter,hasil_pemeriksaan_echo.ivc_rap "+
+                            "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                             "inner join hasil_pemeriksaan_echo on reg_periksa.no_rawat=hasil_pemeriksaan_echo.no_rawat "+
                             "inner join dokter on hasil_pemeriksaan_echo.kd_dokter=dokter.kd_dokter where "+
                             "hasil_pemeriksaan_echo.tanggal between ? and ? order by hasil_pemeriksaan_echo.tanggal");
             }else{
+                // CUSTOM HASIL PEMERIKSAAN ECHO - SELECT dengan 41 field (12 original + 18 history + 11 spectral) dengan search
                 ps=koneksi.prepareStatement(
                             "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,pasien.tgl_lahir,hasil_pemeriksaan_echo.tanggal,"+
                             "hasil_pemeriksaan_echo.kd_dokter,dokter.nm_dokter,"+
                             "hasil_pemeriksaan_echo.sistolik,hasil_pemeriksaan_echo.diastolic,hasil_pemeriksaan_echo.kontraktilitas,hasil_pemeriksaan_echo.dimensi_ruang,"+
                             "hasil_pemeriksaan_echo.katup,hasil_pemeriksaan_echo.analisa_segmental,hasil_pemeriksaan_echo.erap,hasil_pemeriksaan_echo.lain_lain,"+
-                            "hasil_pemeriksaan_echo.kesimpulan from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
+                            "hasil_pemeriksaan_echo.kesimpulan,"+
+                            "hasil_pemeriksaan_echo.aorta,hasil_pemeriksaan_echo.left_atrium,hasil_pemeriksaan_echo.rv_diastolic,hasil_pemeriksaan_echo.ejection_fraction,"+
+                            "hasil_pemeriksaan_echo.epss,hasil_pemeriksaan_echo.lvot_diameter,hasil_pemeriksaan_echo.lv_edd,hasil_pemeriksaan_echo.lv_esd,"+
+                            "hasil_pemeriksaan_echo.ivs_diastolic,hasil_pemeriksaan_echo.lvpw_diastolic,hasil_pemeriksaan_echo.tapse,hasil_pemeriksaan_echo.rvot,"+
+                            "hasil_pemeriksaan_echo.aortic_sinus,hasil_pemeriksaan_echo.asc_aorta,hasil_pemeriksaan_echo.aortic_arcus,hasil_pemeriksaan_echo.desc_aorta,"+
+                            "hasil_pemeriksaan_echo.abdominal_aorta,hasil_pemeriksaan_echo.rvot_diameter,"+
+                            "hasil_pemeriksaan_echo.dec_time,hasil_pemeriksaan_echo.ea_ratio,hasil_pemeriksaan_echo.tvg,hasil_pemeriksaan_echo.m_pap,"+
+                            "hasil_pemeriksaan_echo.emax,hasil_pemeriksaan_echo.ao_vmax,hasil_pemeriksaan_echo.ao_vti,hasil_pemeriksaan_echo.td_lv_ee,"+
+                            "hasil_pemeriksaan_echo.td_lv_ea,hasil_pemeriksaan_echo.ivc_diameter,hasil_pemeriksaan_echo.ivc_rap "+
+                            "from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                             "inner join hasil_pemeriksaan_echo on reg_periksa.no_rawat=hasil_pemeriksaan_echo.no_rawat "+
                             "inner join dokter on hasil_pemeriksaan_echo.kd_dokter=dokter.kd_dokter where "+
                             "hasil_pemeriksaan_echo.tanggal between ? and ? and (reg_periksa.no_rawat like ? or pasien.no_rkm_medis like ? or pasien.nm_pasien like ? or "+
                             "hasil_pemeriksaan_echo.kd_dokter like ? or dokter.nm_dokter like ?) order by hasil_pemeriksaan_echo.tanggal");
             }
-                
+
             try {
                 if(TCari.getText().trim().equals("")){
                     ps.setString(1,Valid.SetTgl(DTPCari1.getSelectedItem()+"")+" 00:00:00");
@@ -1637,13 +2522,19 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
                     ps.setString(5,"%"+TCari.getText()+"%");
                     ps.setString(6,"%"+TCari.getText()+"%");
                     ps.setString(7,"%"+TCari.getText()+"%");
-                }   
+                }
                 rs=ps.executeQuery();
                 while(rs.next()){
+                    // CUSTOM HASIL PEMERIKSAAN ECHO - Tambahkan 45 kolom (7 metadata + 9 original + 18 history + 11 spectral)
                     tabMode.addRow(new Object[]{
                         rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),rs.getDate("tgl_lahir"),rs.getString("kd_dokter"),rs.getString("nm_dokter"),rs.getString("tanggal"),
                         rs.getString("sistolik"),rs.getString("diastolic"),rs.getString("kontraktilitas"),rs.getString("dimensi_ruang"),rs.getString("katup"),rs.getString("analisa_segmental"),
-                        rs.getString("erap"),rs.getString("lain_lain"),rs.getString("kesimpulan")
+                        rs.getString("erap"),rs.getString("lain_lain"),rs.getString("kesimpulan"),
+                        rs.getString("aorta"),rs.getString("left_atrium"),rs.getString("rv_diastolic"),rs.getString("ejection_fraction"),rs.getString("epss"),rs.getString("lvot_diameter"),
+                        rs.getString("lv_edd"),rs.getString("lv_esd"),rs.getString("ivs_diastolic"),rs.getString("lvpw_diastolic"),rs.getString("tapse"),rs.getString("rvot"),
+                        rs.getString("aortic_sinus"),rs.getString("asc_aorta"),rs.getString("aortic_arcus"),rs.getString("desc_aorta"),rs.getString("abdominal_aorta"),rs.getString("rvot_diameter"),
+                        rs.getString("dec_time"),rs.getString("ea_ratio"),rs.getString("tvg"),rs.getString("m_pap"),rs.getString("emax"),rs.getString("ao_vmax"),
+                        rs.getString("ao_vti"),rs.getString("td_lv_ee"),rs.getString("td_lv_ea"),rs.getString("ivc_diameter"),rs.getString("ivc_rap")
                     });
                 }
             } catch (Exception e) {
@@ -1664,6 +2555,38 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     }
 
     public void emptTeks() {
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Clear 18 field baru
+        Aorta.setText("");
+        LeftAtrium.setText("");
+        RVDiastolic.setText("");
+        EjectionFraction.setText("");
+        EPSS.setText("");
+        LVOTDiameter.setText("");
+        LVEDD.setText("");
+        LVESD.setText("");
+        IVSDiastolic.setText("");
+        LVPWDiastolic.setText("");
+        TAPSE.setText("");
+        RVOT.setText("");
+        AorticSinus.setText("");
+        AscAorta.setText("");
+        AorticArcus.setText("");
+        DescAorta.setText("");
+        AbdominalAorta.setText("");
+        RVOTDiameter.setText("");
+        // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Clear 11 field baru
+        DecTime.setText("");
+        EARatio.setText("");
+        TVG.setText("");
+        MPAP.setText("");
+        Emax.setText("");
+        AoVmax.setText("");
+        AoVTI.setText("");
+        TDLVEE.setText("");
+        TDLVEA.setText("");
+        IVCDiameter.setText("");
+        IVCRaP.setText("");
+        // Field lama yang sudah ada
         Sistolik.setText("");
         Diastolik.setText("");
         Kontraktilitas.setText("");
@@ -1680,7 +2603,7 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
 
     private void getData() {
         if(tbObat.getSelectedRow()!= -1){
-            TNoRw.setText(tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()); 
+            TNoRw.setText(tbObat.getValueAt(tbObat.getSelectedRow(),0).toString());
             TNoRM.setText(tbObat.getValueAt(tbObat.getSelectedRow(),1).toString());
             TPasien.setText(tbObat.getValueAt(tbObat.getSelectedRow(),2).toString());
             TglLahir.setText(tbObat.getValueAt(tbObat.getSelectedRow(),3).toString());
@@ -1693,6 +2616,37 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
             Erap.setText(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString());
             LainLain.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
             Kesimpulan.setText(tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());
+            // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Load 18 field baru dari tabel
+            Aorta.setText(tbObat.getValueAt(tbObat.getSelectedRow(),16).toString());
+            LeftAtrium.setText(tbObat.getValueAt(tbObat.getSelectedRow(),17).toString());
+            RVDiastolic.setText(tbObat.getValueAt(tbObat.getSelectedRow(),18).toString());
+            EjectionFraction.setText(tbObat.getValueAt(tbObat.getSelectedRow(),19).toString());
+            EPSS.setText(tbObat.getValueAt(tbObat.getSelectedRow(),20).toString());
+            LVOTDiameter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),21).toString());
+            LVEDD.setText(tbObat.getValueAt(tbObat.getSelectedRow(),22).toString());
+            LVESD.setText(tbObat.getValueAt(tbObat.getSelectedRow(),23).toString());
+            IVSDiastolic.setText(tbObat.getValueAt(tbObat.getSelectedRow(),24).toString());
+            LVPWDiastolic.setText(tbObat.getValueAt(tbObat.getSelectedRow(),25).toString());
+            TAPSE.setText(tbObat.getValueAt(tbObat.getSelectedRow(),26).toString());
+            RVOT.setText(tbObat.getValueAt(tbObat.getSelectedRow(),27).toString());
+            AorticSinus.setText(tbObat.getValueAt(tbObat.getSelectedRow(),28).toString());
+            AscAorta.setText(tbObat.getValueAt(tbObat.getSelectedRow(),29).toString());
+            AorticArcus.setText(tbObat.getValueAt(tbObat.getSelectedRow(),30).toString());
+            DescAorta.setText(tbObat.getValueAt(tbObat.getSelectedRow(),31).toString());
+            AbdominalAorta.setText(tbObat.getValueAt(tbObat.getSelectedRow(),32).toString());
+            RVOTDiameter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),33).toString());
+            // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Load 11 field baru dari tabel
+            DecTime.setText(tbObat.getValueAt(tbObat.getSelectedRow(),34).toString());
+            EARatio.setText(tbObat.getValueAt(tbObat.getSelectedRow(),35).toString());
+            TVG.setText(tbObat.getValueAt(tbObat.getSelectedRow(),36).toString());
+            MPAP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),37).toString());
+            Emax.setText(tbObat.getValueAt(tbObat.getSelectedRow(),38).toString());
+            AoVmax.setText(tbObat.getValueAt(tbObat.getSelectedRow(),39).toString());
+            AoVTI.setText(tbObat.getValueAt(tbObat.getSelectedRow(),40).toString());
+            TDLVEE.setText(tbObat.getValueAt(tbObat.getSelectedRow(),41).toString());
+            TDLVEA.setText(tbObat.getValueAt(tbObat.getSelectedRow(),42).toString());
+            IVCDiameter.setText(tbObat.getValueAt(tbObat.getSelectedRow(),43).toString());
+            IVCRaP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),44).toString());
             Valid.SetTgl2(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),6).toString());
         }
     }
@@ -1776,11 +2730,20 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     }
 
     private void ganti() {
+        // CUSTOM HASIL PEMERIKSAAN ECHO - Update dengan 41 field (12 lama + 18 history + 11 spectral)
         if(Sequel.mengedittf("hasil_pemeriksaan_echo","no_rawat=?","no_rawat=?,tanggal=?,kd_dokter=?,sistolik=?,diastolic=?,kontraktilitas=?,dimensi_ruang=?,katup=?,"+
-                "analisa_segmental=?,erap=?,lain_lain=?,kesimpulan=?",13,new String[]{
+                "analisa_segmental=?,erap=?,lain_lain=?,kesimpulan=?,aorta=?,left_atrium=?,rv_diastolic=?,ejection_fraction=?,epss=?,lvot_diameter=?,"+
+                "lv_edd=?,lv_esd=?,ivs_diastolic=?,lvpw_diastolic=?,tapse=?,rvot=?,aortic_sinus=?,asc_aorta=?,aortic_arcus=?,desc_aorta=?,abdominal_aorta=?,rvot_diameter=?,"+
+                "dec_time=?,ea_ratio=?,tvg=?,m_pap=?,emax=?,ao_vmax=?,ao_vti=?,td_lv_ee=?,td_lv_ea=?,ivc_diameter=?,ivc_rap=?",42,new String[]{
                 TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+"")+" "+Tanggal.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
                 Sistolik.getText(),Diastolik.getText(),Kontraktilitas.getText(),Dimensi.getText(),Katup.getText(),AnalisaSegmental.getText(),
-                Erap.getText(),LainLain.getText(),Kesimpulan.getText(),tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()
+                Erap.getText(),LainLain.getText(),Kesimpulan.getText(),
+                Aorta.getText(),LeftAtrium.getText(),RVDiastolic.getText(),EjectionFraction.getText(),EPSS.getText(),LVOTDiameter.getText(),
+                LVEDD.getText(),LVESD.getText(),IVSDiastolic.getText(),LVPWDiastolic.getText(),TAPSE.getText(),RVOT.getText(),
+                AorticSinus.getText(),AscAorta.getText(),AorticArcus.getText(),DescAorta.getText(),AbdominalAorta.getText(),RVOTDiameter.getText(),
+                DecTime.getText(),EARatio.getText(),TVG.getText(),MPAP.getText(),Emax.getText(),AoVmax.getText(),
+                AoVTI.getText(),TDLVEE.getText(),TDLVEA.getText(),IVCDiameter.getText(),IVCRaP.getText(),
+                tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()
             })==true){
                tbObat.setValueAt(TNoRw.getText(),tbObat.getSelectedRow(),0);
                 tbObat.setValueAt(TNoRM.getText(),tbObat.getSelectedRow(),1);
@@ -1798,6 +2761,36 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
                 tbObat.setValueAt(Erap.getText(),tbObat.getSelectedRow(),13);
                 tbObat.setValueAt(LainLain.getText(),tbObat.getSelectedRow(),14);
                 tbObat.setValueAt(Kesimpulan.getText(),tbObat.getSelectedRow(),15);
+                tbObat.setValueAt(Aorta.getText(),tbObat.getSelectedRow(),16);
+                tbObat.setValueAt(LeftAtrium.getText(),tbObat.getSelectedRow(),17);
+                tbObat.setValueAt(RVDiastolic.getText(),tbObat.getSelectedRow(),18);
+                tbObat.setValueAt(EjectionFraction.getText(),tbObat.getSelectedRow(),19);
+                tbObat.setValueAt(EPSS.getText(),tbObat.getSelectedRow(),20);
+                tbObat.setValueAt(LVOTDiameter.getText(),tbObat.getSelectedRow(),21);
+                tbObat.setValueAt(LVEDD.getText(),tbObat.getSelectedRow(),22);
+                tbObat.setValueAt(LVESD.getText(),tbObat.getSelectedRow(),23);
+                tbObat.setValueAt(IVSDiastolic.getText(),tbObat.getSelectedRow(),24);
+                tbObat.setValueAt(LVPWDiastolic.getText(),tbObat.getSelectedRow(),25);
+                tbObat.setValueAt(TAPSE.getText(),tbObat.getSelectedRow(),26);
+                tbObat.setValueAt(RVOT.getText(),tbObat.getSelectedRow(),27);
+                tbObat.setValueAt(AorticSinus.getText(),tbObat.getSelectedRow(),28);
+                tbObat.setValueAt(AscAorta.getText(),tbObat.getSelectedRow(),29);
+                tbObat.setValueAt(AorticArcus.getText(),tbObat.getSelectedRow(),30);
+                tbObat.setValueAt(DescAorta.getText(),tbObat.getSelectedRow(),31);
+                tbObat.setValueAt(AbdominalAorta.getText(),tbObat.getSelectedRow(),32);
+                tbObat.setValueAt(RVOTDiameter.getText(),tbObat.getSelectedRow(),33);
+                // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Update table display untuk 11 field
+                tbObat.setValueAt(DecTime.getText(),tbObat.getSelectedRow(),34);
+                tbObat.setValueAt(EARatio.getText(),tbObat.getSelectedRow(),35);
+                tbObat.setValueAt(TVG.getText(),tbObat.getSelectedRow(),36);
+                tbObat.setValueAt(MPAP.getText(),tbObat.getSelectedRow(),37);
+                tbObat.setValueAt(Emax.getText(),tbObat.getSelectedRow(),38);
+                tbObat.setValueAt(AoVmax.getText(),tbObat.getSelectedRow(),39);
+                tbObat.setValueAt(AoVTI.getText(),tbObat.getSelectedRow(),40);
+                tbObat.setValueAt(TDLVEE.getText(),tbObat.getSelectedRow(),41);
+                tbObat.setValueAt(TDLVEA.getText(),tbObat.getSelectedRow(),42);
+                tbObat.setValueAt(IVCDiameter.getText(),tbObat.getSelectedRow(),43);
+                tbObat.setValueAt(IVCRaP.getText(),tbObat.getSelectedRow(),44);
                 emptTeks();
                 TabRawat.setSelectedIndex(1);
         }
@@ -1850,14 +2843,114 @@ public final class RMHasilPemeriksaanEcho extends javax.swing.JDialog {
     }
 
     private void simpan() {
-        if(Sequel.menyimpantf("hasil_pemeriksaan_echo","?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",12,new String[]{
+        // CUSTOM HASIL PEMERIKSAAN ECHO - HISTORY/CLINICAL DIAGNOSIS - Auto-fill dengan "-" jika kosong
+        if(Aorta.getText().trim().equals("")){
+            Aorta.setText("-");
+        }
+        if(LeftAtrium.getText().trim().equals("")){
+            LeftAtrium.setText("-");
+        }
+        if(RVDiastolic.getText().trim().equals("")){
+            RVDiastolic.setText("-");
+        }
+        if(EjectionFraction.getText().trim().equals("")){
+            EjectionFraction.setText("-");
+        }
+        if(EPSS.getText().trim().equals("")){
+            EPSS.setText("-");
+        }
+        if(LVOTDiameter.getText().trim().equals("")){
+            LVOTDiameter.setText("-");
+        }
+        if(LVEDD.getText().trim().equals("")){
+            LVEDD.setText("-");
+        }
+        if(LVESD.getText().trim().equals("")){
+            LVESD.setText("-");
+        }
+        if(IVSDiastolic.getText().trim().equals("")){
+            IVSDiastolic.setText("-");
+        }
+        if(LVPWDiastolic.getText().trim().equals("")){
+            LVPWDiastolic.setText("-");
+        }
+        if(TAPSE.getText().trim().equals("")){
+            TAPSE.setText("-");
+        }
+        if(RVOT.getText().trim().equals("")){
+            RVOT.setText("-");
+        }
+        if(AorticSinus.getText().trim().equals("")){
+            AorticSinus.setText("-");
+        }
+        if(AscAorta.getText().trim().equals("")){
+            AscAorta.setText("-");
+        }
+        if(AorticArcus.getText().trim().equals("")){
+            AorticArcus.setText("-");
+        }
+        if(DescAorta.getText().trim().equals("")){
+            DescAorta.setText("-");
+        }
+        if(AbdominalAorta.getText().trim().equals("")){
+            AbdominalAorta.setText("-");
+        }
+        if(RVOTDiameter.getText().trim().equals("")){
+            RVOTDiameter.setText("-");
+        }
+        // CUSTOM HASIL PEMERIKSAAN ECHO - SPECTRAL DOPPLER - Auto-fill dengan "-" jika kosong
+        if(DecTime.getText().trim().equals("")){
+            DecTime.setText("-");
+        }
+        if(EARatio.getText().trim().equals("")){
+            EARatio.setText("-");
+        }
+        if(TVG.getText().trim().equals("")){
+            TVG.setText("-");
+        }
+        if(MPAP.getText().trim().equals("")){
+            MPAP.setText("-");
+        }
+        if(Emax.getText().trim().equals("")){
+            Emax.setText("-");
+        }
+        if(AoVmax.getText().trim().equals("")){
+            AoVmax.setText("-");
+        }
+        if(AoVTI.getText().trim().equals("")){
+            AoVTI.setText("-");
+        }
+        if(TDLVEE.getText().trim().equals("")){
+            TDLVEE.setText("-");
+        }
+        if(TDLVEA.getText().trim().equals("")){
+            TDLVEA.setText("-");
+        }
+        if(IVCDiameter.getText().trim().equals("")){
+            IVCDiameter.setText("-");
+        }
+        if(IVCRaP.getText().trim().equals("")){
+            IVCRaP.setText("-");
+        }
+        // CUSTOM HASIL PEMERIKSAAN ECHO - Simpan dengan 41 field (12 original + 18 history + 11 spectral)
+        if(Sequel.menyimpantf("hasil_pemeriksaan_echo","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","No.Rawat",41,new String[]{
                 TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+"")+" "+Tanggal.getSelectedItem().toString().substring(11,19),KdDokter.getText(),
                 Sistolik.getText(),Diastolik.getText(),Kontraktilitas.getText(),Dimensi.getText(),Katup.getText(),AnalisaSegmental.getText(),
-                Erap.getText(),LainLain.getText(),Kesimpulan.getText()
+                Erap.getText(),LainLain.getText(),Kesimpulan.getText(),
+                Aorta.getText(),LeftAtrium.getText(),RVDiastolic.getText(),EjectionFraction.getText(),EPSS.getText(),LVOTDiameter.getText(),
+                LVEDD.getText(),LVESD.getText(),IVSDiastolic.getText(),LVPWDiastolic.getText(),TAPSE.getText(),RVOT.getText(),
+                AorticSinus.getText(),AscAorta.getText(),AorticArcus.getText(),DescAorta.getText(),AbdominalAorta.getText(),RVOTDiameter.getText(),
+                DecTime.getText(),EARatio.getText(),TVG.getText(),MPAP.getText(),Emax.getText(),AoVmax.getText(),
+                AoVTI.getText(),TDLVEE.getText(),TDLVEA.getText(),IVCDiameter.getText(),IVCRaP.getText()
             })==true){
                 tabMode.addRow(new Object[]{
                     TNoRw.getText(),TNoRM.getText(),TPasien.getText(),TglLahir.getText(),KdDokter.getText(),NmDokter.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+"")+" "+Tanggal.getSelectedItem().toString().substring(11,19),
-                    Sistolik.getText(),Diastolik.getText(),Kontraktilitas.getText(),Dimensi.getText(),Katup.getText(),AnalisaSegmental.getText(),Erap.getText(),LainLain.getText(),Kesimpulan.getText()
+                    Sistolik.getText(),Diastolik.getText(),Kontraktilitas.getText(),Dimensi.getText(),Katup.getText(),AnalisaSegmental.getText(),Erap.getText(),LainLain.getText(),Kesimpulan.getText(),
+                    Aorta.getText(),LeftAtrium.getText(),RVDiastolic.getText(),EjectionFraction.getText(),EPSS.getText(),LVOTDiameter.getText(),
+                    LVEDD.getText(),LVESD.getText(),IVSDiastolic.getText(),LVPWDiastolic.getText(),TAPSE.getText(),RVOT.getText(),
+                    AorticSinus.getText(),AscAorta.getText(),AorticArcus.getText(),DescAorta.getText(),AbdominalAorta.getText(),RVOTDiameter.getText(),
+                    DecTime.getText(),EARatio.getText(),TVG.getText(),MPAP.getText(),Emax.getText(),AoVmax.getText(),
+                    AoVTI.getText(),TDLVEE.getText(),TDLVEA.getText(),IVCDiameter.getText(),IVCRaP.getText()
                 });
                 emptTeks();
                 LCount.setText(""+tabMode.getRowCount());

@@ -31665,7 +31665,15 @@ try{
                 try {
                     rs2=koneksi.prepareStatement(
                             "select hasil_pemeriksaan_echo.tanggal,hasil_pemeriksaan_echo.kd_dokter,dokter.nm_dokter,hasil_pemeriksaan_echo.sistolik,hasil_pemeriksaan_echo.diastolic,hasil_pemeriksaan_echo.kontraktilitas,"+
-                            "hasil_pemeriksaan_echo.dimensi_ruang,hasil_pemeriksaan_echo.katup,hasil_pemeriksaan_echo.analisa_segmental,hasil_pemeriksaan_echo.erap,hasil_pemeriksaan_echo.lain_lain,hasil_pemeriksaan_echo.kesimpulan "+
+                            "hasil_pemeriksaan_echo.dimensi_ruang,hasil_pemeriksaan_echo.katup,hasil_pemeriksaan_echo.analisa_segmental,hasil_pemeriksaan_echo.erap,hasil_pemeriksaan_echo.lain_lain,hasil_pemeriksaan_echo.kesimpulan,"+
+                            // CUSTOM HASIL PEMERIKSAAN ECHO - 18 kolom HISTORY/CLINICAL DIAGNOSIS + 11 kolom SPECTRAL DOPPLER
+                            "hasil_pemeriksaan_echo.aorta,hasil_pemeriksaan_echo.left_atrium,hasil_pemeriksaan_echo.rv_diastolic,hasil_pemeriksaan_echo.ejection_fraction,hasil_pemeriksaan_echo.epss,"+
+                            "hasil_pemeriksaan_echo.lvot_diameter,hasil_pemeriksaan_echo.lv_edd,hasil_pemeriksaan_echo.lv_esd,hasil_pemeriksaan_echo.ivs_diastolic,hasil_pemeriksaan_echo.lvpw_diastolic,"+
+                            "hasil_pemeriksaan_echo.tapse,hasil_pemeriksaan_echo.rvot,hasil_pemeriksaan_echo.aortic_sinus,hasil_pemeriksaan_echo.asc_aorta,hasil_pemeriksaan_echo.aortic_arcus,"+
+                            "hasil_pemeriksaan_echo.desc_aorta,hasil_pemeriksaan_echo.abdominal_aorta,hasil_pemeriksaan_echo.rvot_diameter,"+
+                            "hasil_pemeriksaan_echo.dec_time,hasil_pemeriksaan_echo.ea_ratio,hasil_pemeriksaan_echo.tvg,hasil_pemeriksaan_echo.m_pap,hasil_pemeriksaan_echo.emax,"+
+                            "hasil_pemeriksaan_echo.ao_vmax,hasil_pemeriksaan_echo.ao_vti,hasil_pemeriksaan_echo.td_lv_ee,hasil_pemeriksaan_echo.td_lv_ea,"+
+                            "hasil_pemeriksaan_echo.ivc_diameter,hasil_pemeriksaan_echo.ivc_rap "+
                             "from hasil_pemeriksaan_echo inner join dokter on hasil_pemeriksaan_echo.kd_dokter=dokter.kd_dokter where hasil_pemeriksaan_echo.no_rawat='"+norawat+"'").executeQuery();
                     if(rs2.next()){
                         htmlContent.append("<tr class='isi'>").
@@ -31700,9 +31708,96 @@ try{
                                             append("</tr>");
                             }
                             
+                            // CUSTOM HASIL PEMERIKSAAN ECHO - Section HISTORY/CLINICAL DIAGNOSIS (2 kolom: 9 kiri, 9 kanan)
                             htmlContent.append("<tr>").
                                             append("<td valign='top'>").
-                                                append("HASIL PEMERIKSAAN").
+                                                append("<div align='center'><strong>HISTORY/CLINICAL DIAGNOSIS</strong></div>").
+                                                append("<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>2D/M Mode 31</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>Aorta (20-30 mm) : ").append(rs2.getString("aorta")).append("</td>").
+                                                        append("<td width='50%'>LVPW Diastolic (6-11 mm) : ").append(rs2.getString("lvpw_diastolic")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>Left Atrium (20-40 mm) : ").append(rs2.getString("left_atrium")).append("</td>").
+                                                        append("<td width='50%'>TAPSE (&gt;16 mm) : ").append(rs2.getString("tapse")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>RV Diastolic (11-24 mm) : ").append(rs2.getString("rv_diastolic")).append("</td>").
+                                                        append("<td width='50%'>RVOT (20-35 mm) : ").append(rs2.getString("rvot")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>Ejection Fraction (53-77%) : ").append(rs2.getString("ejection_fraction")).append("</td>").
+                                                        append("<td width='50%'>Aortic Sinus (20-37 mm) : ").append(rs2.getString("aortic_sinus")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>EPSS (0-6 mm) : ").append(rs2.getString("epss")).append("</td>").
+                                                        append("<td width='50%'>Asc Aorta (22-36 mm) : ").append(rs2.getString("asc_aorta")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>LVOT Diameter (17-23 mm) : ").append(rs2.getString("lvot_diameter")).append("</td>").
+                                                        append("<td width='50%'>Aortic Arcus (20-36 mm) : ").append(rs2.getString("aortic_arcus")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>LV EDD (37-55 mm) : ").append(rs2.getString("lv_edd")).append("</td>").
+                                                        append("<td width='50%'>Desc Aorta (20-30 mm) : ").append(rs2.getString("desc_aorta")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>LV ESD (23-42 mm) : ").append(rs2.getString("lv_esd")).append("</td>").
+                                                        append("<td width='50%'>Abdominal Aorta (15-25 mm) : ").append(rs2.getString("abdominal_aorta")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>IVS Diastolic (6-11 mm) : ").append(rs2.getString("ivs_diastolic")).append("</td>").
+                                                        append("<td width='50%'>RVOT Diameter (25-35 mm) : ").append(rs2.getString("rvot_diameter")).append("</td>").
+                                                    append("</tr>").
+                                                append("</table>").
+                                            append("</td>").
+                                        append("</tr>");
+
+                            // CUSTOM HASIL PEMERIKSAAN ECHO - Section SPECTRAL DOPPLER (11 field, 6 sub-header)
+                            htmlContent.append("<tr>").
+                                            append("<td valign='top'>").
+                                                append("<div align='center'><strong>SPECTRAL DOPPLER</strong></div>").
+                                                append("<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>Mitral Inflow</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>Dec Time (m/sec) : ").append(rs2.getString("dec_time")).append("</td>").
+                                                        append("<td width='50%'>E/A : ").append(rs2.getString("ea_ratio")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>Tricuspid Regurgitation</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='100%' colspan='2'>TVG (mmHg) : ").append(rs2.getString("tvg")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>Pulmonary</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='100%' colspan='2'>m PAP (mmHg) : ").append(rs2.getString("m_pap")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>Tissue Doppler</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>E'max (m/s) : ").append(rs2.getString("emax")).append("</td>").
+                                                        append("<td width='50%'>Ao Vmax (m/s) : ").append(rs2.getString("ao_vmax")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr>").
+                                                        append("<td width='100%' colspan='2'>Ao VTI (cm) : ").append(rs2.getString("ao_vti")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>Tissue Doppler LV</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>E/E' : ").append(rs2.getString("td_lv_ee")).append("</td>").
+                                                        append("<td width='50%'>E/A : ").append(rs2.getString("td_lv_ea")).append("</td>").
+                                                    append("</tr>").
+                                                    append("<tr><td width='100%' colspan='2' align='center' bgcolor='#FFFAF8'><strong>Inferior Cava Vein</strong></td></tr>").
+                                                    append("<tr>").
+                                                        append("<td width='50%'>Diameter (mm) : ").append(rs2.getString("ivc_diameter")).append("</td>").
+                                                        append("<td width='50%'>RAP (mmHg) : ").append(rs2.getString("ivc_rap")).append("</td>").
+                                                    append("</tr>").
+                                                append("</table>").
+                                            append("</td>").
+                                        append("</tr>");
+
+                            // CUSTOM HASIL PEMERIKSAAN ECHO - Section DESCRIPTION (rename dari "HASIL PEMERIKSAAN")
+                            htmlContent.append("<tr>").
+                                            append("<td valign='top'>").
+                                                append("<div align='center'><strong>DESCRIPTION</strong></div>").
                                                 append("<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0px' class='tbl_form'>").
                                                     append("<tr>").
                                                         append("<td width='50%'>Fungsi Sistolik LV : ").append(rs2.getString("sistolik")).append("</td>").
