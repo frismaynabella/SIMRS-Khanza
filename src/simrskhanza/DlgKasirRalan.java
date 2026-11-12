@@ -188,6 +188,9 @@ import rekammedis.RMPenilaianBayiBaruLahir;
 import rekammedis.RMPenilaianBishop;
 import rekammedis.RMPenilaianDerajatDehidrasi;
 import rekammedis.RMPenilaianFisioterapi;
+// CUSTOM REHAB MEDIK: Form Re-Assessment & Lembar Program Terapi
+import rekammedis.RMFormAssesment;
+import rekammedis.RMFormLembarTerapi;
 import rekammedis.RMPenilaianGRACE;
 import rekammedis.RMPenilaianKorbanKekerasan;
 import rekammedis.RMPenilaianLanjutanRisikoJatuhAnak;
@@ -533,6 +536,9 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnCheckListKriteriaMasukHCU = new widget.MenuItem();
         MnCheckListKriteriaMasukICU = new widget.MenuItem();
         MnUjiFungsiKFR = new widget.MenuItem();
+        // CUSTOM REHAB MEDIK: instance menu Form Re-Assessment & Lembar Program Terapi
+        MnFormReAssessment = new widget.MenuItem();
+        MnFormLembarTerapi = new widget.MenuItem();
         MnRMRisikoJatuh = new widget.Menu();
         MnPenilaianRisikoJatuhDewasa = new widget.MenuItem();
         MnPenilaianRisikoJatuhAnak = new widget.MenuItem();
@@ -1716,6 +1722,38 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
                 MnUjiFungsiKFRActionPerformed(evt);
             }
         });
+
+        // CUSTOM REHAB MEDIK: properti menu Form Re-Assessment & Lembar Program Terapi
+        MnFormReAssessment.setBackground(new java.awt.Color(255, 255, 254));
+        MnFormReAssessment.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnFormReAssessment.setForeground(new java.awt.Color(50, 50, 50));
+        MnFormReAssessment.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnFormReAssessment.setText("Form Re-Assessment Rehabilitasi Medik");
+        MnFormReAssessment.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnFormReAssessment.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnFormReAssessment.setName("MnFormReAssessment"); // NOI18N
+        MnFormReAssessment.setPreferredSize(new java.awt.Dimension(270, 26));
+        MnFormReAssessment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnFormReAssessmentActionPerformed(evt);
+            }
+        });
+
+        MnFormLembarTerapi.setBackground(new java.awt.Color(255, 255, 254));
+        MnFormLembarTerapi.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnFormLembarTerapi.setForeground(new java.awt.Color(50, 50, 50));
+        MnFormLembarTerapi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnFormLembarTerapi.setText("Form Lembar Program Terapi Rehabilitasi Medik");
+        MnFormLembarTerapi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnFormLembarTerapi.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnFormLembarTerapi.setName("MnFormLembarTerapi"); // NOI18N
+        MnFormLembarTerapi.setPreferredSize(new java.awt.Dimension(310, 26));
+        MnFormLembarTerapi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnFormLembarTerapiActionPerformed(evt);
+            }
+        });
+
         
         MnRMRisikoJatuh.setBackground(new java.awt.Color(255, 255, 254));
         MnRMRisikoJatuh.setForeground(new java.awt.Color(50, 50, 50));
@@ -11998,6 +12036,49 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnUjiFungsiKFRActionPerformed
 
+    // CUSTOM REHAB MEDIK: handler Form Re-Assessment & Lembar Program Terapi
+    private void MnFormReAssessmentActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+        }else if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKasirRalan.requestFocus();
+        }else{
+            if(tbKasirRalan.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMFormAssesment form=new RMFormAssesment(null,false);
+                form.isCek();
+                form.emptTeks();
+                form.setNoRm(TNoRw.getText(),DTPCari1.getDate(),DTPCari2.getDate());
+                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setLocationRelativeTo(internalFrame1);
+                form.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }
+
+    private void MnFormLembarTerapiActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
+        }else if(TNoRw.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu dengan menklik data pada table...!!!");
+            tbKasirRalan.requestFocus();
+        }else{
+            if(tbKasirRalan.getSelectedRow()!= -1){
+                this.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+                RMFormLembarTerapi form=new RMFormLembarTerapi(null,false);
+                form.isCek();
+                form.emptTeks();
+                form.setNoRm(TNoRw.getText(),DTPCari1.getDate(),DTPCari2.getDate());
+                form.setSize(internalFrame1.getWidth()-20,internalFrame1.getHeight()-20);
+                form.setLocationRelativeTo(internalFrame1);
+                form.setVisible(true);
+                this.setCursor(Cursor.getDefaultCursor());
+            }
+        }
+    }
+
     private void ppMasukPoliBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppMasukPoliBtnPrintActionPerformed
         if(tabModekasir.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, table masih kosong...!!!!");
@@ -16410,6 +16491,9 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.Menu MnTindakanRalan;
     private widget.MenuItem MnTransferAntarRuang;
     private widget.MenuItem MnUjiFungsiKFR;
+    // CUSTOM REHAB MEDIK
+    private widget.MenuItem MnFormReAssessment;
+    private widget.MenuItem MnFormLembarTerapi;
     private widget.Menu MnUrut;
     private widget.Menu MnUrut1;
     private widget.MenuItem MnUrutDokterAsc;
@@ -19130,6 +19214,9 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         MnRehabMedik.add(MnPenatalaksanaanTerapiOkupasi);
         MnRehabMedik.add(MnLayananKedokteranFisikRehabilitasi);
         MnRehabMedik.add(MnUjiFungsiKFR);
+        // CUSTOM REHAB MEDIK
+        MnRehabMedik.add(MnFormReAssessment);
+        MnRehabMedik.add(MnFormLembarTerapi);
         
         MnPermintaan.add(MnPermintaanKonsultasiMedik);
         MnPermintaan.add(MnPermintaanKonsultasiPerawat);
