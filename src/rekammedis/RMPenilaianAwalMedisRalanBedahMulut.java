@@ -2092,7 +2092,7 @@ public final class RMPenilaianAwalMedisRalanBedahMulut extends javax.swing.JDial
                                         "<font size='4' face='Tahoma'>"+akses.getnamars()+"</font><br>"+
                                         akses.getalamatrs()+", "+akses.getkabupatenrs()+", "+akses.getpropinsirs()+"<br>"+
                                         akses.getkontakrs()+", E-mail : "+akses.getemailrs()+"<br><br>"+
-                                        "<font size='2' face='Tahoma'>DATA PENGKAJIAN AWAL MEDIS RAWAT JALAN BEDAH MULUT<br><br></font>"+        
+                                        "<font size='2' face='Tahoma'>DATA PENGKAJIAN AWAL MEDIS RAWAT JALAN GIGI<br><br></font>"+        
                                     "</td>"+
                                "</tr>"+
                             "</table>")
@@ -2332,7 +2332,7 @@ public final class RMPenilaianAwalMedisRalanBedahMulut extends javax.swing.JDial
             finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",tbObat.getValueAt(tbObat.getSelectedRow(),5).toString());
             param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+tbObat.getValueAt(tbObat.getSelectedRow(),6).toString()+"\nID "+(finger.equals("")?tbObat.getValueAt(tbObat.getSelectedRow(),5).toString():finger)+"\n"+Valid.SetTgl3(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString())); 
             
-            Valid.MyReportqry("rptCetakPenilaianAwalMedisRalanBedahMulut.jasper","report","::[ Laporan Pengkajian Awal Medis Rawat Jalan Bedah Mulut ]::",
+            Valid.MyReportqry("rptCetakPenilaianAwalMedisRalanBedahMulut.jasper","report","::[ Laporan Pengkajian Awal Medis Rawat Jalan Gigi ]::",
                 "select reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,if(pasien.jk='L','Laki-Laki','Perempuan') as jk,pasien.tgl_lahir,penilaian_medis_ralan_bedah_mulut.tanggal,"+
                 "penilaian_medis_ralan_bedah_mulut.kd_dokter,penilaian_medis_ralan_bedah_mulut.anamnesis,penilaian_medis_ralan_bedah_mulut.hubungan,penilaian_medis_ralan_bedah_mulut.keluhan_utama,"+
                 "penilaian_medis_ralan_bedah_mulut.rps,penilaian_medis_ralan_bedah_mulut.rpk,penilaian_medis_ralan_bedah_mulut.alergi,penilaian_medis_ralan_bedah_mulut.keadaan,"+

@@ -21508,7 +21508,7 @@ try{
                         htmlContent.append(
                           "<tr class='isi'>").append( 
                             "<td valign='top' width='2%'></td>").append(        
-                            "<td valign='top' width='18%'>Pengkajian Awal Medis Rawat Jalan Bedah Mulut</td>").append(
+                            "<td valign='top' width='18%'>Pengkajian Awal Medis Rawat Jalan Gigi</td>").append(
                             "<td valign='top' width='1%' align='center'>:</td>").append(
                             "<td valign='top' width='79%'>").append(
                               "<table width='100%' border='0' align='center' cellpadding='3px' cellspacing='0' class='tbl_form'>"
