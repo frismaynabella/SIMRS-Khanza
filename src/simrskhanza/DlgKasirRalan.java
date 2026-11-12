@@ -260,6 +260,7 @@ import surat.SuratCutiHamil;
 import surat.SuratKeteranganBebasTBC;
 import surat.SuratKeteranganBerobat;
 import surat.SuratKeteranganCovid;
+import surat.SuratKeteranganKesehatanJiwa;
 import surat.SuratKeteranganLayakTerbang;
 import surat.SuratKeteranganSehat;
 import surat.SuratKewaspadaanKesehatan;
@@ -633,6 +634,7 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
         MnCetakSuratSehat = new widget.MenuItem();
         MnCetakSuratSehat1 = new widget.MenuItem();
         MnCetakSuratSehat2 = new widget.MenuItem();
+        MnCetakSuratKesehatanJiwa = new widget.MenuItem();
         MnCetakBebasNarkoba = new widget.MenuItem();
         MnCetakSuratSakit = new widget.MenuItem();
         MnCetakSuratSakitPihak2 = new widget.MenuItem();
@@ -3236,6 +3238,22 @@ public final class DlgKasirRalan extends javax.swing.JDialog {
             }
         });
         MnSuratSurat.add(MnCetakSuratSehat2);
+
+        MnCetakSuratKesehatanJiwa.setBackground(new java.awt.Color(255, 255, 254));
+        MnCetakSuratKesehatanJiwa.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        MnCetakSuratKesehatanJiwa.setForeground(new java.awt.Color(50, 50, 50));
+        MnCetakSuratKesehatanJiwa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/category.png"))); // NOI18N
+        MnCetakSuratKesehatanJiwa.setText("Surat Keterangan Kesehatan Jiwa");
+        MnCetakSuratKesehatanJiwa.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        MnCetakSuratKesehatanJiwa.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        MnCetakSuratKesehatanJiwa.setName("MnCetakSuratKesehatanJiwa"); // NOI18N
+        MnCetakSuratKesehatanJiwa.setPreferredSize(new java.awt.Dimension(250, 26));
+        MnCetakSuratKesehatanJiwa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MnCetakSuratKesehatanJiwaActionPerformed(evt);
+            }
+        });
+        MnSuratSurat.add(MnCetakSuratKesehatanJiwa);
 
         MnCetakBebasNarkoba.setBackground(new java.awt.Color(255, 255, 254));
         MnCetakBebasNarkoba.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -11524,6 +11542,23 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         }
     }//GEN-LAST:event_MnCetakSuratSehat2ActionPerformed
 
+    private void MnCetakSuratKesehatanJiwaActionPerformed(java.awt.event.ActionEvent evt) {
+        if(tabModekasir.getRowCount()==0){
+            JOptionPane.showMessageDialog(null,"Maaf, data pasien sudah habis...!!!!");
+            TNoRw.requestFocus();
+        }else if(TPasienCari.getText().trim().equals("")){
+            JOptionPane.showMessageDialog(null,"Maaf, Silahkan anda pilih dulu data registrasi pada table...!!!");
+            TCari.requestFocus();
+        }else{
+            if(tbKasirRalan.getSelectedRow()!= -1){
+                SuratKeteranganKesehatanJiwa surat=new SuratKeteranganKesehatanJiwa(null,false);
+                surat.setNoRm(TNoRw.getText());
+                surat.setLocationRelativeTo(internalFrame1);
+                surat.setVisible(true);
+            }
+        }
+    }
+
     private void ppSuratPRIBtnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppSuratPRIBtnPrintActionPerformed
         if(tabModekasir.getRowCount()==0){
             JOptionPane.showMessageDialog(null,"Maaf, data pasien sudah habis...!!!!");
@@ -16151,6 +16186,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
     private widget.MenuItem MnCetakSuratSehat;
     private widget.MenuItem MnCetakSuratSehat1;
     private widget.MenuItem MnCetakSuratSehat2;
+    private widget.MenuItem MnCetakSuratKesehatanJiwa;
     private widget.MenuItem MnCheckListKriteriaMasukHCU;
     private widget.MenuItem MnCheckListKriteriaMasukICU;
     private widget.MenuItem MnChecklistPreOperasi;
@@ -16802,6 +16838,7 @@ private void MnDataPemberianObatActionPerformed(java.awt.event.ActionEvent evt) 
         ppSuratKontrol.setEnabled(akses.getbpjs_surat_kontrol());    
         ppSuratPRI.setEnabled(akses.getbpjs_surat_pri());  
         MnCetakSuratSehat2.setEnabled(akses.getsurat_keterangan_sehat());   
+        MnCetakSuratKesehatanJiwa.setEnabled(akses.getsurat_keterangan_sehat());
         MnCetakSuratSakitPihak2.setEnabled(akses.getsurat_sakit_pihak_2()); 
         MnCetakSuratBebasTBC.setEnabled(akses.getsurat_bebas_tbc());     
         MnSuratButaWarna.setEnabled(akses.getsurat_buta_warna());      
