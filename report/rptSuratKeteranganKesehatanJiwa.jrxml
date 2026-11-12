@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.8.0.final using JasperReports Library version 6.8.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptSuratKeteranganKesehatanJiwa" pageWidth="595" pageHeight="842" columnWidth="515" leftMargin="40" rightMargin="40" topMargin="30" bottomMargin="30" uuid="c57c7af0-b8d8-431c-a264-4ce4f06b73cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="namars" class="java.lang.String"/>
+	<parameter name="alamatrs" class="java.lang.String"/>
+	<parameter name="kotars" class="java.lang.String"/>
+	<parameter name="propinsirs" class="java.lang.String"/>
+	<parameter name="kontakrs" class="java.lang.String"/>
+	<parameter name="emailrs" class="java.lang.String"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<parameter name="finger" class="java.lang.String"/>
+	<parameter name="nosurat" class="java.lang.String"/>
+	<parameter name="tglperiksa" class="java.lang.String"/>
+	<parameter name="tglsurat" class="java.lang.String"/>
+	<parameter name="kesimpulan" class="java.lang.String"/>
+	<parameter name="keperluan" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select dokter.kd_dokter,dokter.nm_dokter,dokter.no_ijn_praktek,ifnull(pegawai.jbtn,'') as jbtn,
+pasien.nm_pasien,concat(ifnull(pasien.tmp_lahir,''),', ',DATE_FORMAT(pasien.tgl_lahir,'%d-%m-%Y')) as ttl,pasien.jk,pasien.pnd,pasien.pekerjaan,
+concat(pasien.alamat,', Kel. ',kelurahan.nm_kel,', Kec. ',kecamatan.nm_kec,', ',kabupaten.nm_kab,', Prov. ',propinsi.nm_prop) as alamat
+from reg_periksa inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis
+inner join kelurahan on pasien.kd_kel=kelurahan.kd_kel inner join kecamatan on pasien.kd_kec=kecamatan.kd_kec
+inner join kabupaten on pasien.kd_kab=kabupaten.kd_kab inner join propinsi on pasien.kd_prop=propinsi.kd_prop
+inner join dokter on dokter.kd_dokter=reg_periksa.kd_dokter left join pegawai on pegawai.nik=dokter.kd_dokter]]>
+	</queryString>
+	<field name="kd_dokter" class="java.lang.String"/>
+	<field name="nm_dokter" class="java.lang.String"/>
+	<field name="no_ijn_praktek" class="java.lang.String"/>
+	<field name="jbtn" class="java.lang.String"/>
+	<field name="nm_pasien" class="java.lang.String"/>
+	<field name="ttl" class="java.lang.String"/>
+	<field name="jk" class="java.lang.String"/>
+	<field name="pnd" class="java.lang.String"/>
+	<field name="pekerjaan" class="java.lang.String"/>
+	<field name="alamat" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="670" splitType="Stretch">
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement x="0" y="0" width="65" height="65" uuid="9976c4e1-c194-4051-a37b-775d0fbfa895"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="0" width="375" height="16" uuid="7aa659a3-b26f-4fed-a26c-04a4b83dcc28"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PEMERINTAH PROVINSI "+($P{propinsirs}==null?"":$P{propinsirs}.toUpperCase())]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="70" y="16" width="375" height="19" uuid="ca206222-b3ce-488f-b840-74cb2baf39fc"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{namars}==null?"":$P{namars}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="35" width="435" height="12" uuid="ccd006c0-bd35-4028-9285-59069ca1cf90"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{alamatrs}+", "+$P{kotars}+", "+$P{propinsirs}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="47" width="435" height="12" uuid="88983073-9592-4587-87b6-c67dc4ef4c5f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{kontakrs}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="40" y="59" width="435" height="12" uuid="5d40e02d-096a-40f5-915f-3a44f62f58ec"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["E-mail : "+$P{emailrs}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="74" width="515" height="1" uuid="39da4f2a-295f-49cb-9817-69ca8f692bdf"/>
+				<graphicElement>
+					<pen lineWidth="2.0"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="0" y="77" width="515" height="1" uuid="042e690b-0e72-4ceb-ba68-a1c2a6c8c0d9"/>
+				<graphicElement>
+					<pen lineWidth="0.75"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="0" y="88" width="515" height="17" uuid="cb137e21-4b91-41d0-b423-b64de670b3c9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="13" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[SURAT KETERANGAN KESEHATAN JIWA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="105" width="515" height="16" uuid="7b65b5ff-f186-46a5-919f-27617332bc5d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NOMOR : "+($P{nosurat}==null?"":$P{nosurat})]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="132" width="515" height="34" uuid="04859f7f-43cb-411c-be13-b9902db295bc"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Tahoma" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Yang bertanda tangan di bawah ini Dokter Spesialis pada "+$P{namars}+" Provinsi "+$P{propinsirs}+" :"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="172" width="130" height="18" uuid="ae9a09b9-f7ad-40bd-81ab-31a41751d1ef"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="172" width="10" height="18" uuid="9f9b8dcc-e400-4032-b3e6-3a8bae100f43"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="172" width="373" height="18" uuid="5d47002c-d8de-4304-ac4d-e45d71a57812"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_dokter}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="190" width="130" height="18" uuid="fbb088f2-9630-401f-b0e5-dd73b84f675b"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[NIP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="190" width="10" height="18" uuid="05757be1-4180-43b4-82de-834518faabea"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="190" width="373" height="18" uuid="9bdd22f6-c7ce-48dd-8925-0f300a78ba30"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{kd_dokter}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="208" width="130" height="18" uuid="87130e25-0e20-442b-9ee4-78fbeac1ca09"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[SIP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="208" width="10" height="18" uuid="65ec31ec-c5b1-46d6-bb58-c1bfed9249b2"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="208" width="373" height="18" uuid="16da5992-b416-47a6-8d9b-b25ae7e238d5"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_ijn_praktek}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="226" width="130" height="18" uuid="ab221ad6-9a4e-4d41-89ba-eb1a73b1495a"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Jabatan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="226" width="10" height="18" uuid="a115209e-84ec-4dab-b78f-a34332885b62"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="226" width="373" height="18" uuid="42fddb3e-056b-46c0-8500-e3e7bff5a9c5"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jbtn}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="252" width="515" height="34" uuid="8acf8dcb-757a-4296-98ad-35979c66dc59"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Tahoma" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Telah melakukan pemeriksaan Psikiatri berupa Wawancara, Observasi dan Psikometri pada tanggal "+$P{tglperiksa}+", terhadap:"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="292" width="130" height="18" uuid="df9fa0dc-478f-46ba-8e3e-48de275a9ea6"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Nama]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="292" width="10" height="18" uuid="7efcb4db-4a38-4a63-a7f6-cbde78264bc6"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="292" width="373" height="18" uuid="1ffb1d6a-9ffc-453d-a227-195e961062e5"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_pasien}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="310" width="130" height="18" uuid="87b56b72-79a9-4b33-9398-02955337b1bf"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Tempat, Tgl. Lahir]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="310" width="10" height="18" uuid="08f8c112-08c6-4a08-bca0-4d704c2c3a50"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="310" width="373" height="18" uuid="dc8bc9f5-10e3-4683-959b-a1195c4250e1"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ttl}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="328" width="130" height="18" uuid="c0c105bc-3660-4369-915e-4ff05bc33a20"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Jenis Kelamin]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="328" width="10" height="18" uuid="174f9bda-53a3-4d36-9721-588987571759"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="328" width="373" height="18" uuid="bafeb769-3a41-4dac-9ae1-221b85f0eaeb"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["L".equals($F{jk})?"Laki-Laki":"Perempuan"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="346" width="130" height="18" uuid="c2a469d5-7ad1-4029-8f46-f4265bac1f5b"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Pendidikan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="346" width="10" height="18" uuid="82d26aed-86a4-4105-abef-cfc3cbdd6fc8"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="346" width="373" height="18" uuid="dd4c25c4-426c-424d-82ba-e48168133bd6"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA["TS".equals($F{pnd})?"Tidak Sekolah":
+"S1".equals($F{pnd})?"Strata I":
+"S2".equals($F{pnd})?"Strata II":
+"S3".equals($F{pnd})?"Strata III":
+"D1".equals($F{pnd})?"Diploma I":
+"D2".equals($F{pnd})?"Diploma II":
+"D3".equals($F{pnd})?"Diploma III":
+"D4".equals($F{pnd})?"Diploma IV":
+$F{pnd}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="364" width="130" height="18" uuid="79a9d80c-afc4-48e8-b333-14048281c738"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Pekerjaan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="364" width="10" height="18" uuid="e6a94390-6b0e-4640-bd64-99376b3805ca"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="364" width="373" height="18" uuid="2cfa7295-5308-4e97-8585-0fcf6eceb35c"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pekerjaan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="382" width="130" height="18" uuid="afba5094-4c40-40bc-a5df-8463409c64d4"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="130" y="382" width="10" height="18" uuid="993f427c-34f0-490c-937d-ac2c872503f5"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="142" y="382" width="373" height="18" uuid="32922ad2-a8fd-4794-9b4e-848cd489ed49"/>
+				<textElement>
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{alamat}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="410" width="515" height="34" uuid="1d77c0c0-a5e9-4bb9-8917-92b8fd978f25"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Tahoma" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Berdasarkan hasil pemeriksaan kesehatan jiwa saat ini disimpulkan: <style isBold=\"true\">"+($P{kesimpulan}==null?"":$P{kesimpulan}.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;"))+"</style>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="448" width="515" height="20" uuid="b0a14f89-1d09-4ed3-84eb-aaed582be133"/>
+				<textElement textAlignment="Justified" markup="styled">
+					<font fontName="Tahoma" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Surat Keterangan ini dibuat dengan keperluan : <style isBold=\"true\">"+($P{keperluan}==null?"":$P{keperluan}.replace("&","&amp;").replace("<","&lt;").replace(">","&gt;"))+"</style>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="472" width="515" height="20" uuid="8a02fa19-4a45-4ab5-83dd-62c0af82c322"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Tahoma" size="11"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<text><![CDATA[Demikian Surat Keterangan ini dibuat untuk dapat dipergunakan sebagaimana mestinya.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="290" y="512" width="225" height="16" uuid="784f0187-0514-406c-a0a7-11d86dfc3857"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{kotars}+", "+$P{tglsurat}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="290" y="528" width="225" height="16" uuid="4d8f67ef-38b0-49d4-bb1c-56951d963900"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="11"/>
+				</textElement>
+				<text><![CDATA[Dokter Pemeriksa,]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement positionType="Float" x="365" y="548" width="75" height="75" isRemoveLineWhenBlank="true" uuid="5ed528dc-caed-4f70-ab35-77f10895e78f"/>
+				<jr:QRCode xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" errorCorrectionLevel="H">
+					<jr:codeExpression><![CDATA[$P{finger}]]></jr:codeExpression>
+				</jr:QRCode>
+			</componentElement>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="290" y="627" width="225" height="16" uuid="b26941c7-a7b1-4d0a-b44d-740d470ee7d5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="11" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nm_dokter}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
