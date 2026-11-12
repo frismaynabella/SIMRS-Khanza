@@ -77,10 +77,11 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
 
         tabMode=new DefaultTableModel(null,new Object[]{
             "No.Rawat","No.R.M.","Nama Pasien","Tgl.Lahir","JK","Tanggal","Bicara","Keterangan Bicara","Bahasa Sehari-hari","Keterangan Bahasa Sehari-hari",
-            "Perlu Penerjemah","Keterangan Penerjemah","Bahasa Isyarat","Cara Belajar","Hambatan Belajar","Keterangan Hambatan Belajar","Kemampuan Belajar", 
-            "Keterangan Kemampuan Belajar","Pendidikan Pasien","Penyakitnya Merupakan","Keterangan Penyakitnya Merupakan","Keputusan Memilih Layanan", 
-            "Keterangan Keputusan Memilih Layanan","Keyakinan Terhadap Terapi","Keterangan Keyakinan Terhadap Terapi","Aspek Keyakinan Dipertimbangkan", 
-            "Keterangan Aspek Keyakinan Dipertimbangkan","Kesediaan Menerima Informasi","Topik Edukasi Penyakit Diderita","Topik Edukasi Rencana Tindakan/Terapi", 
+            "Perlu Penerjemah","Keterangan Penerjemah","Bahasa Isyarat","Cara Belajar","Hambatan Belajar","Keterangan Hambatan Belajar","Kemampuan Belajar",
+            // CUSTOM FORM EDUKASI (Ubah header tabel: Penyakitnya Merupakan → Agama, Keputusan Memilih Layanan → Kegiatan Khusus, Keyakinan Terhadap Terapi → Pantangan Khusus, Aspek Keyakinan Dipertimbangkan → Hal Yang Dibutuhkan)
+            "Keterangan Kemampuan Belajar","Pendidikan Pasien","Agama","Keterangan Agama","Kegiatan Khusus",
+            "Keterangan Kegiatan Khusus","Pantangan Khusus","Keterangan Pantangan Khusus","Hal Yang Dibutuhkan",
+            "Keterangan Hal Yang Dibutuhkan","Kesediaan Menerima Informasi","Topik Edukasi Penyakit Diderita","Topik Edukasi Rencana Tindakan/Terapi",
             "Topik Edukasi Pengobatan/Prosedur Diperlukan","Topik Edukasi Hasil Pelayanan","NIP","Petugas"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
@@ -980,7 +981,8 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
         FormInput.add(jLabel57);
         jLabel57.setBounds(0, 230, 200, 23);
 
-        PenyakitnyaMerupakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ujian/Cobaan", "Kutukan", "Lain-lain" }));
+        // CUSTOM FORM EDUKASI (Ubah enum Penyakitnya Merupakan → Agama: Islam, Kristen, Katolik, Hindu, Budha, KongHuChu, Lain-lain)
+        PenyakitnyaMerupakan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Islam", "Kristen", "Katolik", "Hindu", "Budha", "KongHuChu", "Lain-lain" }));
         PenyakitnyaMerupakan.setName("PenyakitnyaMerupakan"); // NOI18N
         PenyakitnyaMerupakan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1005,7 +1007,8 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
         FormInput.add(jLabel58);
         jLabel58.setBounds(0, 260, 275, 23);
 
-        KeputusanMemilihLayanan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Sendiri", "Keluarga", "Lain-lain" }));
+        // CUSTOM FORM EDUKASI (Ubah enum Keputusan Memilih Layanan → Kegiatan Khusus: Ada, Tidak Ada, Lain-lain)
+        KeputusanMemilihLayanan.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Ada", "Tidak Ada", "Lain-lain" }));
         KeputusanMemilihLayanan.setName("KeputusanMemilihLayanan"); // NOI18N
         KeputusanMemilihLayanan.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1035,7 +1038,8 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
         FormInput.add(KeteranganKeyakinanTerhadapHasil);
         KeteranganKeyakinanTerhadapHasil.setBounds(497, 290, 292, 23);
 
-        KeyakinanTerhadapHasil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Pasrah", "Yakin Sembuh Jika Kontrol Teratur", "Yakin Sembuh Jika Minum Obat Teratur", "Lain-lain" }));
+        // CUSTOM FORM EDUKASI (Ubah enum Keyakinan Terhadap Hasil Terapi → Pantangan Khusus: Makanan Tertentu, Obat Tertentu, Tidak Menerima Transfusi Darah, Lain-lain)
+        KeyakinanTerhadapHasil.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Makanan Tertentu", "Obat Tertentu", "Tidak Menerima Transfusi Darah", "Lain-lain" }));
         KeyakinanTerhadapHasil.setName("KeyakinanTerhadapHasil"); // NOI18N
         KeyakinanTerhadapHasil.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -1076,25 +1080,29 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
         KeteranganAspekKeyakinan.setBounds(517, 320, 272, 23);
 
         jLabel61.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel61.setText("Penyakitnya Merupakan");
+        // CUSTOM FORM EDUKASI (Ubah label Penyakitnya Merupakan → Agama)
+        jLabel61.setText("Agama");
         jLabel61.setName("jLabel61"); // NOI18N
         FormInput.add(jLabel61);
         jLabel61.setBounds(79, 230, 130, 23);
 
         jLabel62.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel62.setText("Keputusan Memilih Layanan Kesehatan");
+        // CUSTOM FORM EDUKASI (Ubah label Keputusan Memilih Layanan Kesehatan → Kegiatan Khusus)
+        jLabel62.setText("Kegiatan Khusus");
         jLabel62.setName("jLabel62"); // NOI18N
         FormInput.add(jLabel62);
         jLabel62.setBounds(79, 260, 200, 23);
 
         jLabel63.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel63.setText("Keyakinan Terhadap Hasil Terapi");
+        // CUSTOM FORM EDUKASI (Ubah label Keyakinan Terhadap Hasil Terapi → Pantangan Khusus)
+        jLabel63.setText("Pantangan Khusus");
         jLabel63.setName("jLabel63"); // NOI18N
         FormInput.add(jLabel63);
         jLabel63.setBounds(79, 290, 170, 23);
 
         jLabel64.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel64.setText("Aspek Keyakinan Yang Perlu Dipertimbangkan Selama Masa Perawatan");
+        // CUSTOM FORM EDUKASI (Ubah label Aspek Keyakinan Yang Perlu Dipertimbangkan Selama Masa Perawatan → Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan)
+        jLabel64.setText("Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan");
         jLabel64.setName("jLabel64"); // NOI18N
         FormInput.add(jLabel64);
         jLabel64.setBounds(79, 320, 360, 23);
@@ -1412,14 +1420,18 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Kemampuan Belajar</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Kemampuan Belajar</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Pendidikan Pasien</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Penyakitnya Merupakan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Penyakitnya Merupakan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keputusan Memilih Layanan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Keputusan Memilih Layanan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keyakinan Terhadap Terapi</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Keyakinan Terhadap Terapi</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Aspek Keyakinan Dipertimbangkan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Aspek Keyakinan Dipertimbangkan</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Penyakitnya Merupakan → Agama)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Agama</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Agama</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Keputusan Memilih Layanan → Kegiatan Khusus)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Kegiatan Khusus</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Kegiatan Khusus</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Keyakinan Terhadap Terapi → Pantangan Khusus)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Pantangan Khusus</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Pantangan Khusus</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Aspek Keyakinan Dipertimbangkan → Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Kesediaan Menerima Informasi</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Topik Edukasi Penyakit Diderita</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Topik Edukasi Rencana Tindakan/Terapi</b></td>"+
@@ -1517,14 +1529,18 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Kemampuan Belajar</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Kemampuan Belajar</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Pendidikan Pasien</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Penyakitnya Merupakan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Penyakitnya Merupakan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keputusan Memilih Layanan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Keputusan Memilih Layanan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keyakinan Terhadap Terapi</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Keyakinan Terhadap Terapi</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Aspek Keyakinan Dipertimbangkan</b></td>"+
-                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Aspek Keyakinan Dipertimbangkan</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Penyakitnya Merupakan → Agama)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Agama</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Agama</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Keputusan Memilih Layanan → Kegiatan Khusus)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Kegiatan Khusus</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Kegiatan Khusus</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Keyakinan Terhadap Terapi → Pantangan Khusus)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Pantangan Khusus</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Pantangan Khusus</b></td>"+
+                                    // CUSTOM FORM EDUKASI (Ubah header report: Aspek Keyakinan Dipertimbangkan → Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan)
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan</b></td>"+
+                                    "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Keterangan Apakah Ada Hal Yang Dibutuhkan Selama Masa Perawatan</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Kesediaan Menerima Informasi</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Topik Edukasi Penyakit Diderita</b></td>"+
                                     "<td valign='middle' bgcolor='#FFFAFA' align='center'><b>Topik Edukasi Rencana Tindakan/Terapi</b></td>"+
@@ -1601,8 +1617,9 @@ public final class RMEdukasiPasienKeluargaRawatJalan extends javax.swing.JDialog
                         break;
                     case "Laporan 3 (CSV)":
                             htmlContent = new StringBuilder();
-                            htmlContent.append(                             
-                                "\"No.Rawat\";\"No.R.M.\";\"Nama Pasien\";\"Tgl.Lahir\";\"JK\";\"Tanggal\";\"Bicara\";\"Keterangan Bicara\";\"Bahasa Sehari-hari\";\"Keterangan Bahasa Sehari-hari\";\"Perlu Penerjemah\";\"Keterangan Penerjemah\";\"Bahasa Isyarat\";\"Cara Belajar\";\"Hambatan Belajar\";\"Keterangan Hambatan Belajar\";\"Kemampuan Belajar\";\"Keterangan Kemampuan Belajar\";\"Pendidikan Pasien\";\"Penyakitnya Merupakan\";\"Keterangan Penyakitnya Merupakan\";\"Keputusan Memilih Layanan\";\"Keterangan Keputusan Memilih Layanan\";\"Keyakinan Terhadap Terapi\";\"Keterangan Keyakinan Terhadap Terapi\";\"Aspek Keyakinan Dipertimbangkan\";\"Keterangan Aspek Keyakinan Dipertimbangkan\";\"Kesediaan Menerima Informasi\";\"Topik Edukasi Penyakit Diderita\";\"Topik Edukasi Rencana Tindakan/Terapi\";\"Topik Edukasi Pengobatan/Prosedur Diperlukan\";\"Topik Edukasi Hasil Pelayanan\";\"NIP\";\"Petugas\"\n"
+                            // CUSTOM FORM EDUKASI (Ubah header export CSV: Penyakitnya Merupakan → Agama, Keputusan Memilih Layanan → Kegiatan Khusus, Keyakinan Terhadap Terapi → Pantangan Khusus, Aspek Keyakinan Dipertimbangkan → Hal Yang Dibutuhkan)
+                            htmlContent.append(
+                                "\"No.Rawat\";\"No.R.M.\";\"Nama Pasien\";\"Tgl.Lahir\";\"JK\";\"Tanggal\";\"Bicara\";\"Keterangan Bicara\";\"Bahasa Sehari-hari\";\"Keterangan Bahasa Sehari-hari\";\"Perlu Penerjemah\";\"Keterangan Penerjemah\";\"Bahasa Isyarat\";\"Cara Belajar\";\"Hambatan Belajar\";\"Keterangan Hambatan Belajar\";\"Kemampuan Belajar\";\"Keterangan Kemampuan Belajar\";\"Pendidikan Pasien\";\"Agama\";\"Keterangan Agama\";\"Kegiatan Khusus\";\"Keterangan Kegiatan Khusus\";\"Pantangan Khusus\";\"Keterangan Pantangan Khusus\";\"Hal Yang Dibutuhkan\";\"Keterangan Hal Yang Dibutuhkan\";\"Kesediaan Menerima Informasi\";\"Topik Edukasi Penyakit Diderita\";\"Topik Edukasi Rencana Tindakan/Terapi\";\"Topik Edukasi Pengobatan/Prosedur Diperlukan\";\"Topik Edukasi Hasil Pelayanan\";\"NIP\";\"Petugas\"\n"
                             ); 
                             for (i = 0; i < tabMode.getRowCount(); i++) {
                                 htmlContent.append(
