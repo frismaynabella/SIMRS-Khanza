@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.17.0.final using JasperReports Library version 6.5.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="2175" pageHeight="612" orientation="Landscape" columnWidth="2135" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f505995-42c1-4cc5-b34d-0896041d3a11">
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.5.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="2305" pageHeight="612" orientation="Landscape" columnWidth="2265" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f505995-42c1-4cc5-b34d-0896041d3a11">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -32,7 +32,9 @@
                 telaah_farmasi.resep_tepat_cara_pemberian,telaah_farmasi.resep_ket_tepat_cara_pemberian,telaah_farmasi.resep_tepat_waktu_pemberian,
                 telaah_farmasi.resep_ket_tepat_waktu_pemberian,telaah_farmasi.resep_ada_tidak_duplikasi_obat,telaah_farmasi.resep_ket_ada_tidak_duplikasi_obat,
                 telaah_farmasi.resep_interaksi_obat,telaah_farmasi.resep_ket_interaksi_obat,telaah_farmasi.resep_kontra_indikasi_obat,
-                telaah_farmasi.resep_ket_kontra_indikasi_obat,telaah_farmasi.obat_tepat_pasien,telaah_farmasi.obat_tepat_obat,
+                telaah_farmasi.resep_ket_kontra_indikasi_obat,
+                telaah_farmasi.resep_obat_high_alert,telaah_farmasi.resep_ket_obat_high_alert,
+                telaah_farmasi.obat_tepat_pasien,telaah_farmasi.obat_tepat_obat,
                 telaah_farmasi.obat_tepat_dosis,telaah_farmasi.obat_tepat_cara_pemberian,telaah_farmasi.obat_tepat_waktu_pemberian,
                 telaah_farmasi.nip,petugas.nama 
                 from telaah_farmasi inner join resep_obat on telaah_farmasi.no_resep=resep_obat.no_resep 
@@ -205,6 +207,20 @@
 		<property name="com.jaspersoft.studio.field.tree.path" value="telaah_farmasi"/>
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<!-- CUSTOM TELAAH RESEP - 4 September 2026: Field no.9 Obat High Alert -->
+	<field name="resep_obat_high_alert" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="resep_obat_high_alert"/>
+		<property name="com.jaspersoft.studio.field.label" value="resep_obat_high_alert"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="telaah_farmasi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="resep_ket_obat_high_alert" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="resep_ket_obat_high_alert"/>
+		<property name="com.jaspersoft.studio.field.label" value="resep_ket_obat_high_alert"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="telaah_farmasi"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<!-- END CUSTOM TELAAH RESEP - 4 September 2026 -->
 	<field name="obat_tepat_pasien" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="obat_tepat_pasien"/>
 		<property name="com.jaspersoft.studio.field.label" value="obat_tepat_pasien"/>
@@ -251,7 +267,7 @@
 	<title>
 		<band height="84" splitType="Stretch">
 			<staticText>
-				<reportElement x="2" y="54" width="2128" height="23" uuid="ac6b5ade-def5-4da3-a9ec-6b5ba71a59b8"/>
+				<reportElement x="2" y="54" width="2258" height="23" uuid="ac6b5ade-def5-4da3-a9ec-6b5ba71a59b8"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="11" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
@@ -263,7 +279,7 @@
 				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
-				<reportElement x="2" y="0" width="2128" height="17" uuid="dace3819-932a-480b-b0b1-f5f7e8b4be00"/>
+				<reportElement x="2" y="0" width="2258" height="17" uuid="dace3819-932a-480b-b0b1-f5f7e8b4be00"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="12"/>
 					<paragraph lineSpacing="Single"/>
@@ -271,7 +287,7 @@
 				<textFieldExpression><![CDATA[$P{namars}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="14" width="2128" height="14" uuid="394913e0-9565-49b9-a406-7a5545e19543"/>
+				<reportElement x="2" y="14" width="2258" height="14" uuid="394913e0-9565-49b9-a406-7a5545e19543"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="9"/>
 					<paragraph lineSpacing="Single"/>
@@ -279,7 +295,7 @@
 				<textFieldExpression><![CDATA[$P{alamatrs}+", "+$P{kotars}+", "+$P{propinsirs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="35" width="2128" height="14" uuid="80bbf59e-ceb5-4262-91b7-8497f698bbce"/>
+				<reportElement x="2" y="35" width="2258" height="14" uuid="80bbf59e-ceb5-4262-91b7-8497f698bbce"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="9"/>
 					<paragraph lineSpacing="Single"/>
@@ -287,7 +303,7 @@
 				<textFieldExpression><![CDATA["E-mail : "+$P{emailrs}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="2" y="25" width="2128" height="14" uuid="4e807905-a6c5-40df-b608-bc62d78efc98"/>
+				<reportElement x="2" y="25" width="2258" height="14" uuid="4e807905-a6c5-40df-b608-bc62d78efc98"/>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="9"/>
 					<paragraph lineSpacing="Single"/>
@@ -295,7 +311,7 @@
 				<textFieldExpression><![CDATA[$P{kontakrs}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="48" width="2130" height="1" uuid="4fb76038-b325-403c-b1dd-64632d65ad1c"/>
+				<reportElement x="0" y="48" width="2260" height="1" uuid="4fb76038-b325-403c-b1dd-64632d65ad1c"/>
 				<graphicElement>
 					<pen lineWidth="2.0" lineStyle="Double"/>
 				</graphicElement>
@@ -308,7 +324,7 @@
 	<columnHeader>
 		<band height="27" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="1729" y="0" width="40" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="2f8e689f-4a80-4d3f-a016-eace0b8e33a4">
+				<reportElement mode="Opaque" x="1859" y="0" width="40" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="2f8e689f-4a80-4d3f-a016-eace0b8e33a4">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -318,7 +334,7 @@
 				<text><![CDATA[T.O.Tepat Pasien]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1769" y="0" width="40" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="d9f3ab1b-0ca9-4ae5-8f2d-c32acd88dc8c">
+				<reportElement mode="Opaque" x="1899" y="0" width="40" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="d9f3ab1b-0ca9-4ae5-8f2d-c32acd88dc8c">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -328,7 +344,7 @@
 				<text><![CDATA[T.O.Tepat Obat]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1809" y="0" width="40" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="9b15c4b8-6cc1-4ff6-afe8-108249672636">
+				<reportElement mode="Opaque" x="1939" y="0" width="40" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="9b15c4b8-6cc1-4ff6-afe8-108249672636">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -338,7 +354,7 @@
 				<text><![CDATA[T.O.Tepat Dosis]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1849" y="0" width="60" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="59b9f8ac-4f3a-4ac3-9a46-30fe75b325bb">
+				<reportElement mode="Opaque" x="1979" y="0" width="60" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="59b9f8ac-4f3a-4ac3-9a46-30fe75b325bb">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -348,7 +364,7 @@
 				<text><![CDATA[T.O.Tepat Cara Pemberian]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1909" y="0" width="63" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="beebe38a-898a-44c4-adb0-1ac8856738fc">
+				<reportElement mode="Opaque" x="2039" y="0" width="63" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="beebe38a-898a-44c4-adb0-1ac8856738fc">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -358,7 +374,7 @@
 				<text><![CDATA[T.O.Tepat Waktu Pemberian]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="1972" y="0" width="54" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="0ab88886-84f6-449c-849c-07ff6727eb5b">
+				<reportElement mode="Opaque" x="2102" y="0" width="54" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="0ab88886-84f6-449c-849c-07ff6727eb5b">
 					<property name="com.jaspersoft.studio.unit.width" value="px"/>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -368,12 +384,12 @@
 				<text><![CDATA[NIP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="2026" y="0" width="104" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="00ea587d-69fb-4705-8e0d-602a4c31a0dd"/>
+				<reportElement mode="Opaque" x="2156" y="0" width="104" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="00ea587d-69fb-4705-8e0d-602a4c31a0dd"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Tahoma" size="8" isBold="false"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<text><![CDATA[Nama Dokter]]></text>
+				<text><![CDATA[Nama Petugas]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="1599" y="0" width="50" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="b267a5d7-f066-4d13-90c4-5d6c7a17f839">
@@ -394,6 +410,28 @@
 					<paragraph lineSpacing="Single"/>
 				</textElement>
 				<text><![CDATA[Ket T.R.Kontra Indikasi]]></text>
+			</staticText>
+			<!-- CUSTOM TELAAH RESEP - 4 September 2026: Kolom no.9 Obat High Alert -->
+			<staticText>
+				<reportElement mode="Opaque" x="1729" y="0" width="50" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="99ffde17-3e37-4be5-bace-c12bdd8e1a03">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[T.R.Obat High Alert]]></text>
+			</staticText>
+			<!-- CUSTOM TELAAH RESEP - 4 September 2026: Kolom no.9 Obat High Alert -->
+			<staticText>
+				<reportElement mode="Opaque" x="1779" y="0" width="80" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="4b6952e3-0d26-4609-8917-4d4accba1bdc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Tahoma" size="8" isBold="false"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Ket T.R.Obat High Alert]]></text>
 			</staticText>
 			<staticText>
 				<reportElement mode="Opaque" x="1519" y="0" width="80" height="26" forecolor="#000000" backcolor="#F0F0DC" uuid="3c9653b4-8c60-4957-936c-e17c0f6c5568">
@@ -632,7 +670,7 @@
 				<text><![CDATA[JK]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="26" width="2130" height="1" uuid="f1062824-af54-46b9-92c2-c07c722ef05b"/>
+				<reportElement x="0" y="26" width="2260" height="1" uuid="f1062824-af54-46b9-92c2-c07c722ef05b"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -646,7 +684,7 @@
 				<text><![CDATA[Status]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="2130" height="1" uuid="b9df08be-712d-4d7a-8167-33f136e9b181"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="2260" height="1" uuid="b9df08be-712d-4d7a-8167-33f136e9b181"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
@@ -732,7 +770,7 @@
 				<textFieldExpression><![CDATA[$F{resep_tepat_dosis}]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement positionType="Float" x="0" y="11" width="2130" height="1" uuid="0d957b63-991b-4cfa-9c0f-c30d7460e5db">
+				<reportElement positionType="Float" x="0" y="11" width="2260" height="1" uuid="0d957b63-991b-4cfa-9c0f-c30d7460e5db">
 					<property name="com.jaspersoft.studio.unit.y" value="px"/>
 				</reportElement>
 				<graphicElement>
@@ -915,6 +953,28 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{resep_ket_kontra_indikasi_obat}]]></textFieldExpression>
 			</textField>
+			<!-- CUSTOM TELAAH RESEP - 4 September 2026: Kolom no.9 Obat High Alert -->
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="1729" y="0" width="50" height="10" uuid="793f6bb0-9de7-46a4-b663-65fe08093dc1">
+					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resep_obat_high_alert}]]></textFieldExpression>
+			</textField>
+			<!-- CUSTOM TELAAH RESEP - 4 September 2026: Kolom no.9 Obat High Alert -->
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="1779" y="0" width="80" height="10" uuid="0cd6a4af-243c-4a2e-9d71-cecc1128a872">
+					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
+				</reportElement>
+				<textElement textAlignment="Left">
+					<font fontName="Tahoma" size="8"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resep_ket_obat_high_alert}]]></textFieldExpression>
+			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" x="1599" y="0" width="50" height="10" uuid="34debf36-e987-4117-b80a-0cada1a23cf8">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
@@ -926,7 +986,7 @@
 				<textFieldExpression><![CDATA[$F{resep_kontra_indikasi_obat}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1729" y="0" width="40" height="10" uuid="14a260b4-5d5f-47d0-84c2-85256db2ed5f">
+				<reportElement positionType="Float" x="1859" y="0" width="40" height="10" uuid="14a260b4-5d5f-47d0-84c2-85256db2ed5f">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -936,7 +996,7 @@
 				<textFieldExpression><![CDATA[$F{obat_tepat_pasien}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1769" y="0" width="40" height="10" uuid="c7eab86b-dd02-4d0c-b484-7e14448f7768">
+				<reportElement positionType="Float" x="1899" y="0" width="40" height="10" uuid="c7eab86b-dd02-4d0c-b484-7e14448f7768">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -946,7 +1006,7 @@
 				<textFieldExpression><![CDATA[$F{obat_tepat_obat}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1809" y="0" width="40" height="10" uuid="082102a6-609d-4a98-bce5-cee9bedc4e97">
+				<reportElement positionType="Float" x="1939" y="0" width="40" height="10" uuid="082102a6-609d-4a98-bce5-cee9bedc4e97">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -956,7 +1016,7 @@
 				<textFieldExpression><![CDATA[$F{obat_tepat_dosis}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1849" y="0" width="60" height="10" uuid="d02ee0b6-573b-4a06-a3a6-d652cc68cf8c">
+				<reportElement positionType="Float" x="1979" y="0" width="60" height="10" uuid="d02ee0b6-573b-4a06-a3a6-d652cc68cf8c">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -965,18 +1025,19 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{obat_tepat_cara_pemberian}]]></textFieldExpression>
 			</textField>
+			<!-- CUSTOM TELAAH RESEP - 13 November 2026: Kolom T.O.Tepat Waktu Pemberian, dulu salah mencetak obat_tepat_cara_pemberian -->
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1909" y="0" width="63" height="10" uuid="492eed86-5869-4b52-83dd-15a53baf2731">
+				<reportElement positionType="Float" x="2039" y="0" width="63" height="10" uuid="492eed86-5869-4b52-83dd-15a53baf2731">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center">
 					<font fontName="Tahoma" size="8"/>
 					<paragraph lineSpacing="Single"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{obat_tepat_cara_pemberian}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{obat_tepat_waktu_pemberian}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="1972" y="0" width="54" height="10" uuid="ec80750c-a124-4759-97df-bd811509aeed">
+				<reportElement positionType="Float" x="2102" y="0" width="54" height="10" uuid="ec80750c-a124-4759-97df-bd811509aeed">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Center">
@@ -986,7 +1047,7 @@
 				<textFieldExpression><![CDATA[$F{nip}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="2026" y="0" width="104" height="10" uuid="a00b8bac-bc00-49c6-bd4f-38e611ddf793">
+				<reportElement positionType="Float" x="2156" y="0" width="104" height="10" uuid="a00b8bac-bc00-49c6-bd4f-38e611ddf793">
 					<property name="com.jaspersoft.studio.unit.width" value="cm"/>
 				</reportElement>
 				<textElement textAlignment="Left">
@@ -1045,13 +1106,13 @@
 				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement x="0" y="1" width="2130" height="1" uuid="bbf19c94-0c90-4ab0-a6e8-3b4be88c02eb"/>
+				<reportElement x="0" y="1" width="2260" height="1" uuid="bbf19c94-0c90-4ab0-a6e8-3b4be88c02eb"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>
 			</line>
 			<line>
-				<reportElement x="0" y="23" width="2130" height="1" uuid="52867f44-ef0b-4c39-8569-fe89c51cd284"/>
+				<reportElement x="0" y="23" width="2260" height="1" uuid="52867f44-ef0b-4c39-8569-fe89c51cd284"/>
 				<graphicElement>
 					<pen lineWidth="0.5"/>
 				</graphicElement>

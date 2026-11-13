@@ -2794,7 +2794,9 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         "telaah_farmasi.resep_tepat_cara_pemberian,telaah_farmasi.resep_ket_tepat_cara_pemberian,telaah_farmasi.resep_tepat_waktu_pemberian,"+
                         "telaah_farmasi.resep_ket_tepat_waktu_pemberian,telaah_farmasi.resep_ada_tidak_duplikasi_obat,telaah_farmasi.resep_ket_ada_tidak_duplikasi_obat,"+
                         "telaah_farmasi.resep_interaksi_obat,telaah_farmasi.resep_ket_interaksi_obat,telaah_farmasi.resep_kontra_indikasi_obat,"+
-                        "telaah_farmasi.resep_ket_kontra_indikasi_obat,telaah_farmasi.obat_tepat_pasien,telaah_farmasi.obat_tepat_obat,telaah_farmasi.obat_tepat_dosis,"+
+                        "telaah_farmasi.resep_ket_kontra_indikasi_obat,"+ // CUSTOM TELAAH RESEP - 4 September 2026: ambil kolom no.9
+                        "telaah_farmasi.resep_obat_high_alert,telaah_farmasi.resep_ket_obat_high_alert,"+
+                        "telaah_farmasi.obat_tepat_pasien,telaah_farmasi.obat_tepat_obat,telaah_farmasi.obat_tepat_dosis,"+
                         "telaah_farmasi.obat_tepat_cara_pemberian,telaah_farmasi.obat_tepat_waktu_pemberian,telaah_farmasi.nip,petugas.nama "+
                         "from telaah_farmasi inner join petugas on telaah_farmasi.nip=petugas.nip where telaah_farmasi.no_resep=?");
                 try {
@@ -2884,6 +2886,17 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                                         "<td valign='middle' align='center'></td>"+
                                         "<td valign='middle' align='left' colspan='2'>Keterangan : "+rs.getString("resep_ket_kontra_indikasi_obat")+"</td>"+
                                     "</tr>"+
+                                    // CUSTOM TELAAH RESEP - 4 September 2026: Baris no.9 Obat High Alert
+                                    "<tr class='isi'>"+
+                                        "<td valign='middle' align='center'>9</td>"+
+                                        "<td valign='middle' align='left'>Obat High Alert</td>"+
+                                        "<td valign='middle' align='center'>"+rs.getString("resep_obat_high_alert")+"</td>"+
+                                    "</tr>"+
+                                    "<tr class='isi'>"+
+                                        "<td valign='middle' align='center'></td>"+
+                                        "<td valign='middle' align='left' colspan='2'>Keterangan : "+rs.getString("resep_ket_obat_high_alert")+"</td>"+
+                                    "</tr>"+
+                                    // END CUSTOM TELAAH RESEP - 4 September 2026
                                     "<tr class='isi'>"+
                                         "<td valign='middle' align='center' colspan='3'><br>TELAAH OBAT ( VERIFIKASI OBAT )</td>"+
                                     "</tr>"+
