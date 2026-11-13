@@ -61,9 +61,11 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         this.setLocation(8,1);
         setSize(628,674);
         
+        // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 kolom baru (total 19→22 kolom)
         tabMode=new DefaultTableModel(null,new Object[]{
             "No.Persetujuan","No.Rawat","No.R.M.","Nama Pasien","Umur","J.K.","Tgl.Lahir","Tanggal","Pengobatan Kepada","Nilai Kepercayaan",
-            "Nama Penanggung Jawab","Umur P.J.","Nomor KTP P.J.","J.K. P.J.","Nomor Telp/HP","Bertindak Untuk","NIP","Nama Petugas"
+            "Nama Penanggung Jawab","Umur P.J.","Nomor KTP P.J.","J.K. P.J.","Nomor Telp/HP","Bertindak Untuk","NIP","Nama Petugas",
+            "Tidak Mau Dikunjungi Oleh","Tidak Mengizinkan Akses","Memberi Izin Kepada","Hubungan Memberi Izin"
         }){
               @Override public boolean isCellEditable(int rowIndex, int colIndex){return false;}
         };
@@ -73,7 +75,8 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         tbObat.setPreferredScrollableViewportSize(new Dimension(500,500));
         tbObat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 
-        for (i = 0; i < 18; i++) {
+        // CUSTOM PERSETUJUAN UMUM v2.0: Update loop kolom dari 19 menjadi 22
+        for (i = 0; i < 22; i++) {
             TableColumn column = tbObat.getColumnModel().getColumn(i);
             if(i==0){
                 column.setPreferredWidth(105);
@@ -111,6 +114,18 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
                 column.setPreferredWidth(90);
             }else if(i==17){
                 column.setPreferredWidth(150);
+            }else if(i==18){
+                // CUSTOM PERSETUJUAN UMUM v1.0: Lebar kolom "Tidak Mau Dikunjungi Oleh"
+                column.setPreferredWidth(180);
+            }else if(i==19){
+                // CUSTOM PERSETUJUAN UMUM v2.0: Lebar kolom "Tidak Mengizinkan Akses"
+                column.setPreferredWidth(200);
+            }else if(i==20){
+                // CUSTOM PERSETUJUAN UMUM v2.0: Lebar kolom "Memberi Izin Kepada"
+                column.setPreferredWidth(150);
+            }else if(i==21){
+                // CUSTOM PERSETUJUAN UMUM v2.0: Lebar kolom "Hubungan Memberi Izin"
+                column.setPreferredWidth(150);
             }
         }
         tbObat.setDefaultRenderer(Object.class, new WarnaTable());
@@ -122,8 +137,14 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         NamaPJ.setDocument(new batasInput((byte)50).getKata(NamaPJ));
         NoKTP.setDocument(new batasInput((byte)20).getKata(NoKTP)); 
         UmurPJ.setDocument(new batasInput((byte)3).getKata(UmurPJ));  
-        NoTelp.setDocument(new batasInput((byte)30).getKata(NoTelp));    
-        
+        NoTelp.setDocument(new batasInput((byte)30).getKata(NoTelp));
+        // CUSTOM PERSETUJUAN UMUM v1.0: Set batas input 50 karakter untuk Tidak Mau Dikunjungi Oleh
+        TidakMauDikunjungi.setDocument(new batasInput((byte)50).getKata(TidakMauDikunjungi));
+        // CUSTOM PERSETUJUAN UMUM v2.0: Set batas input 50 karakter untuk 3 field baru
+        TidakMengizinkanAkses.setDocument(new batasInput((byte)50).getKata(TidakMengizinkanAkses));
+        MemberiIzin.setDocument(new batasInput((byte)50).getKata(MemberiIzin));
+        HubunganMemberiIzin.setDocument(new batasInput((byte)50).getKata(HubunganMemberiIzin));
+
         ChkInput.setSelected(false);
         isForm();
         
@@ -215,6 +236,16 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         NoKTP = new widget.TextBox();
         NoTelp = new widget.TextBox();
         jLabel20 = new widget.Label();
+        // CUSTOM PERSETUJUAN UMUM v1.0: Inisialisasi komponen field Tidak Mau Dikunjungi Oleh
+        jLabel22 = new widget.Label();
+        TidakMauDikunjungi = new widget.TextBox();
+        // CUSTOM PERSETUJUAN UMUM v2.0: Inisialisasi 6 komponen baru (3 label + 3 textbox)
+        jLabel23 = new widget.Label();
+        TidakMengizinkanAkses = new widget.TextBox();
+        jLabel24 = new widget.Label();
+        MemberiIzin = new widget.TextBox();
+        jLabel25 = new widget.Label();
+        HubunganMemberiIzin = new widget.TextBox();
         ChkInput = new widget.CekBox();
         PanelAccor = new widget.PanelBiasa();
         ChkAccor = new widget.CekBox();
@@ -695,6 +726,70 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         FormInput.add(jLabel20);
         jLabel20.setBounds(200, 120, 96, 23);
 
+        // CUSTOM PERSETUJUAN UMUM v1.0: Konfigurasi label Tidak Mau Dikunjungi Oleh
+        jLabel22.setText("Tidak Mau Dikunjungi Oleh :");
+        jLabel22.setName("jLabel22"); // NOI18N
+        FormInput.add(jLabel22);
+        jLabel22.setBounds(0, 145, 160, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Kurangi width TidakMauDikunjungi dari 305 menjadi 200
+        TidakMauDikunjungi.setName("TidakMauDikunjungi"); // NOI18N
+        TidakMauDikunjungi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TidakMauDikunjungiKeyPressed(evt);
+            }
+        });
+        FormInput.add(TidakMauDikunjungi);
+        TidakMauDikunjungi.setBounds(164, 145, 200, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Konfigurasi jLabel23 (Tidak Mengizinkan Akses)
+        jLabel23.setText("Tidak Mengizinkan Hak Akses Informasi Kesehatan Kepada :");
+        jLabel23.setName("jLabel23"); // NOI18N
+        FormInput.add(jLabel23);
+        jLabel23.setBounds(370, 145, 220, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Konfigurasi TidakMengizinkanAkses
+        TidakMengizinkanAkses.setName("TidakMengizinkanAkses"); // NOI18N
+        TidakMengizinkanAkses.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                TidakMengizinkanAksesKeyPressed(evt);
+            }
+        });
+        FormInput.add(TidakMengizinkanAkses);
+        TidakMengizinkanAkses.setBounds(594, 145, 145, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Konfigurasi jLabel24 (Memberi Izin Kepada)
+        jLabel24.setText("Memberi Izin Kepada :");
+        jLabel24.setName("jLabel24"); // NOI18N
+        FormInput.add(jLabel24);
+        jLabel24.setBounds(0, 170, 130, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Konfigurasi MemberiIzin
+        MemberiIzin.setName("MemberiIzin"); // NOI18N
+        MemberiIzin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MemberiIzinKeyPressed(evt);
+            }
+        });
+        FormInput.add(MemberiIzin);
+        MemberiIzin.setBounds(134, 170, 230, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Konfigurasi jLabel25 (Sebagai)
+        jLabel25.setText("Sebagai :");
+        jLabel25.setName("jLabel25"); // NOI18N
+        FormInput.add(jLabel25);
+        jLabel25.setBounds(370, 170, 60, 23);
+
+        // CUSTOM PERSETUJUAN UMUM v2.0: Konfigurasi HubunganMemberiIzin
+        HubunganMemberiIzin.setName("HubunganMemberiIzin"); // NOI18N
+        HubunganMemberiIzin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                HubunganMemberiIzinKeyPressed(evt);
+            }
+        });
+        FormInput.add(HubunganMemberiIzin);
+        HubunganMemberiIzin.setBounds(434, 170, 305, 23);
+
         PanelInput.add(FormInput, java.awt.BorderLayout.CENTER);
 
         ChkInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/picture/143.png"))); // NOI18N
@@ -825,6 +920,16 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
             Valid.textKosong(UmurPJ,"Umur");
         }else if(NoTelp.getText().trim().equals("")){
             Valid.textKosong(NoTelp,"Nomor Telp");
+        // CUSTOM PERSETUJUAN UMUM v1.0: Validasi wajib diisi untuk Tidak Mau Dikunjungi Oleh
+        }else if(TidakMauDikunjungi.getText().trim().equals("")){
+            Valid.textKosong(TidakMauDikunjungi,"Tidak Mau Dikunjungi Oleh");
+        // CUSTOM PERSETUJUAN UMUM v2.0: Validasi wajib diisi 3 field baru
+        }else if(TidakMengizinkanAkses.getText().trim().equals("")){
+            Valid.textKosong(TidakMengizinkanAkses,"Tidak Mengizinkan Hak Akses Informasi Kesehatan Kepada");
+        }else if(MemberiIzin.getText().trim().equals("")){
+            Valid.textKosong(MemberiIzin,"Memberi Izin Kepada");
+        }else if(HubunganMemberiIzin.getText().trim().equals("")){
+            Valid.textKosong(HubunganMemberiIzin,"Hubungan Memberi Izin (Sebagai)");
         }else if(NoKTP.getText().trim().equals("")){
             Valid.textKosong(NoKTP,"Nomor KTP");
         }else if(NmPetugas.getText().trim().equals("")){
@@ -832,14 +937,18 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         }else if(NoSurat.getText().trim().equals("")){
             Valid.textKosong(NoSurat,"No.Pernyataan");
         }else{
-            if(Sequel.menyimpantf("surat_persetujuan_umum","?,?,?,?,?,?,?,?,?,?,?,?","Data",12,new String[]{
+            // CUSTOM PERSETUJUAN UMUM v2.0: Update query INSERT dari 13 menjadi 16 parameter
+            if(Sequel.menyimpantf("surat_persetujuan_umum","?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?","Data",16,new String[]{
                     NoSurat.getText(),TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),"-","",NamaPJ.getText(),UmurPJ.getText(),NoKTP.getText(),
-                    JKPJ.getSelectedItem().toString().substring(0,1),BertindakAtas.getSelectedItem().toString(),NoTelp.getText(),KdPetugas.getText()
+                    JKPJ.getSelectedItem().toString().substring(0,1),BertindakAtas.getSelectedItem().toString(),NoTelp.getText(),KdPetugas.getText(),
+                    TidakMauDikunjungi.getText(),TidakMengizinkanAkses.getText(),MemberiIzin.getText(),HubunganMemberiIzin.getText()
                 })==true){
+                // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 kolom baru ke tabel display (index 19, 20, 21)
                 tabMode.addRow(new Object[]{
                     NoSurat.getText(),TNoRw.getText(),TNoRM.getText(),TPasien.getText(),Umur.getText(),JK.getText(),LahirPasien.getText(),
                     Valid.SetTgl(Tanggal.getSelectedItem()+""),"-","",NamaPJ.getText(),UmurPJ.getText(),NoKTP.getText(),JKPJ.getSelectedItem().toString().substring(0,1),
-                    NoTelp.getText(),BertindakAtas.getSelectedItem().toString(),KdPetugas.getText(),NmPetugas.getText()
+                    NoTelp.getText(),BertindakAtas.getSelectedItem().toString(),KdPetugas.getText(),NmPetugas.getText(),
+                    TidakMauDikunjungi.getText(),TidakMengizinkanAkses.getText(),MemberiIzin.getText(),HubunganMemberiIzin.getText()
                 });
                 LCount.setText(""+tabMode.getRowCount());
                 emptTeks();
@@ -901,6 +1010,16 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
             Valid.textKosong(UmurPJ,"Umur");
         }else if(NoTelp.getText().trim().equals("")){
             Valid.textKosong(NoTelp,"Nomor Telp");
+        // CUSTOM PERSETUJUAN UMUM v1.0: Validasi wajib diisi untuk Tidak Mau Dikunjungi Oleh (Edit)
+        }else if(TidakMauDikunjungi.getText().trim().equals("")){
+            Valid.textKosong(TidakMauDikunjungi,"Tidak Mau Dikunjungi Oleh");
+        // CUSTOM PERSETUJUAN UMUM v2.0: Validasi wajib diisi 3 field baru (Edit)
+        }else if(TidakMengizinkanAkses.getText().trim().equals("")){
+            Valid.textKosong(TidakMengizinkanAkses,"Tidak Mengizinkan Hak Akses Informasi Kesehatan Kepada");
+        }else if(MemberiIzin.getText().trim().equals("")){
+            Valid.textKosong(MemberiIzin,"Memberi Izin Kepada");
+        }else if(HubunganMemberiIzin.getText().trim().equals("")){
+            Valid.textKosong(HubunganMemberiIzin,"Hubungan Memberi Izin (Sebagai)");
         }else if(NoKTP.getText().trim().equals("")){
             Valid.textKosong(NoKTP,"Nomor KTP");
         }else if(NmPetugas.getText().trim().equals("")){
@@ -958,22 +1077,26 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
             param.put("logo",Sequel.cariGambar("select setting.logo from setting")); 
             
             if(TCari.getText().trim().equals("")){
+                // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 4 kolom custom (v1.0 + v2.0) di query report
                 Valid.MyReportqry("rptDataPersetujuanUmum.jasper","report","::[ Data Persetujuan Umum ]::",
                     "select surat_persetujuan_umum.no_surat,reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,"+
                     "reg_periksa.sttsumur,pasien.jk,pasien.tgl_lahir,surat_persetujuan_umum.tanggal,surat_persetujuan_umum.pengobatan_kepada,"+
                     "surat_persetujuan_umum.nilai_kepercayaan,surat_persetujuan_umum.nama_pj,surat_persetujuan_umum.umur_pj,surat_persetujuan_umum.no_ktppj,"+
                     "surat_persetujuan_umum.jkpj,surat_persetujuan_umum.bertindak_atas,surat_persetujuan_umum.no_telp,surat_persetujuan_umum.nip,"+
-                    "petugas.nama from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
+                    "petugas.nama,surat_persetujuan_umum.tidak_mau_dikunjungi,surat_persetujuan_umum.tidak_mengizinkan_akses,"+
+                    "surat_persetujuan_umum.memberi_izin,surat_persetujuan_umum.hubungan_memberi_izin from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on surat_persetujuan_umum.nip=petugas.nip where "+
                     "surat_persetujuan_umum.tanggal between '"+Valid.SetTgl(DTPCari1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(DTPCari2.getSelectedItem()+"")+"' order by surat_persetujuan_umum.tanggal",param);
             }else{
+                // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 4 kolom custom (v1.0 + v2.0) di query report dengan filter
                 Valid.MyReportqry("rptDataPersetujuanUmum.jasper","report","::[ Data Persetujuan Umum ]::",
                     "select surat_persetujuan_umum.no_surat,reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,"+
                     "reg_periksa.sttsumur,pasien.jk,pasien.tgl_lahir,surat_persetujuan_umum.tanggal,surat_persetujuan_umum.pengobatan_kepada,"+
                     "surat_persetujuan_umum.nilai_kepercayaan,surat_persetujuan_umum.nama_pj,surat_persetujuan_umum.umur_pj,surat_persetujuan_umum.no_ktppj,"+
                     "surat_persetujuan_umum.jkpj,surat_persetujuan_umum.bertindak_atas,surat_persetujuan_umum.no_telp,surat_persetujuan_umum.nip,"+
-                    "petugas.nama from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
+                    "petugas.nama,surat_persetujuan_umum.tidak_mau_dikunjungi,surat_persetujuan_umum.tidak_mengizinkan_akses,"+
+                    "surat_persetujuan_umum.memberi_izin,surat_persetujuan_umum.hubungan_memberi_izin from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on surat_persetujuan_umum.nip=petugas.nip where "+
                     "surat_persetujuan_umum.tanggal between '"+Valid.SetTgl(DTPCari1.getSelectedItem()+"")+"' and '"+Valid.SetTgl(DTPCari2.getSelectedItem()+"")+"' and "+
@@ -1137,8 +1260,29 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
     }//GEN-LAST:event_NoKTPKeyPressed
 
     private void NoTelpKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_NoTelpKeyPressed
-        Valid.pindah(evt,JKPJ,BertindakAtas);
+        // CUSTOM PERSETUJUAN UMUM v2.0: Update navigasi keyboard ke field TidakMauDikunjungi
+        Valid.pindah(evt,JKPJ,TidakMauDikunjungi);
     }//GEN-LAST:event_NoTelpKeyPressed
+
+    // CUSTOM PERSETUJUAN UMUM v2.0: Event handler keyboard untuk field TidakMauDikunjungi
+    private void TidakMauDikunjungiKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TidakMauDikunjungiKeyPressed
+        Valid.pindah(evt,NoTelp,TidakMengizinkanAkses);
+    }//GEN-LAST:event_TidakMauDikunjungiKeyPressed
+
+    // CUSTOM PERSETUJUAN UMUM v2.0: Event handler keyboard untuk field TidakMengizinkanAkses
+    private void TidakMengizinkanAksesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_TidakMengizinkanAksesKeyPressed
+        Valid.pindah(evt,TidakMauDikunjungi,MemberiIzin);
+    }//GEN-LAST:event_TidakMengizinkanAksesKeyPressed
+
+    // CUSTOM PERSETUJUAN UMUM v2.0: Event handler keyboard untuk field MemberiIzin
+    private void MemberiIzinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MemberiIzinKeyPressed
+        Valid.pindah(evt,TidakMengizinkanAkses,HubunganMemberiIzin);
+    }//GEN-LAST:event_MemberiIzinKeyPressed
+
+    // CUSTOM PERSETUJUAN UMUM v2.0: Event handler keyboard untuk field HubunganMemberiIzin
+    private void HubunganMemberiIzinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_HubunganMemberiIzinKeyPressed
+        Valid.pindah(evt,MemberiIzin,BtnSimpan);
+    }//GEN-LAST:event_HubunganMemberiIzinKeyPressed
 
     private void ChkAccorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChkAccorActionPerformed
         if(tbObat.getSelectedRow()!= -1){
@@ -1193,9 +1337,10 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
                 param.put("photo","http://"+koneksiDB.HOSTHYBRIDWEB()+":"+koneksiDB.PORTWEB()+"/"+koneksiDB.HYBRIDWEB()+"/persetujuanumum/"+lokasifile);
                 finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",tbObat.getValueAt(tbObat.getSelectedRow(),16).toString());
                 param.put("finger","Dikeluarkan di "+akses.getnamars()+", Kabupaten/Kota "+akses.getkabupatenrs()+"\nDitandatangani secara elektronik oleh "+tbObat.getValueAt(tbObat.getSelectedRow(),17).toString()+"\nID "+(finger.equals("")?tbObat.getValueAt(tbObat.getSelectedRow(),16).toString():finger)+"\n"+Valid.SetTgl3(tbObat.getValueAt(tbObat.getSelectedRow(),7).toString()));
+                // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 4 kolom custom (v1.0 + v2.0) di query SELECT untuk report individual
                 Valid.MyReportqry("rptSuratPersetujuanUmum.jasper","report","::[ Surat Persetujuan Umum ]::",
                     "select surat_persetujuan_umum.no_surat,reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,reg_periksa.sttsumur,pasien.jk,pasien.tgl_lahir,surat_persetujuan_umum.tanggal,surat_persetujuan_umum.pengobatan_kepada,pasien.tmp_lahir,concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab,', ',propinsi.nm_prop) as alamat,"+
-		    "surat_persetujuan_umum.nilai_kepercayaan,surat_persetujuan_umum.nama_pj,surat_persetujuan_umum.umur_pj,surat_persetujuan_umum.no_ktppj,surat_persetujuan_umum.jkpj,surat_persetujuan_umum.bertindak_atas,surat_persetujuan_umum.no_telp,surat_persetujuan_umum.nip,petugas.nama,penjab.png_jawab from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
+		    "surat_persetujuan_umum.nilai_kepercayaan,surat_persetujuan_umum.nama_pj,surat_persetujuan_umum.umur_pj,surat_persetujuan_umum.no_ktppj,surat_persetujuan_umum.jkpj,surat_persetujuan_umum.bertindak_atas,surat_persetujuan_umum.no_telp,surat_persetujuan_umum.nip,petugas.nama,penjab.png_jawab,surat_persetujuan_umum.tidak_mau_dikunjungi,surat_persetujuan_umum.tidak_mengizinkan_akses,surat_persetujuan_umum.memberi_izin,surat_persetujuan_umum.hubungan_memberi_izin from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
 		    "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis inner join petugas on surat_persetujuan_umum.nip=petugas.nip inner join kelurahan on pasien.kd_kel=kelurahan.kd_kel inner join kecamatan on pasien.kd_kec=kecamatan.kd_kec inner join kabupaten on pasien.kd_kab=kabupaten.kd_kab inner join propinsi on pasien.kd_prop=propinsi.kd_prop inner join penjab on reg_periksa.kd_pj=penjab.kd_pj "+
                     "where surat_persetujuan_umum.no_surat='"+tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()+"'",param);
             }
@@ -1285,6 +1430,12 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
     private widget.TextBox TNoRw;
     private widget.TextBox TPasien;
     private widget.Tanggal Tanggal;
+    // CUSTOM PERSETUJUAN UMUM v1.0: Tambah variabel untuk field Tidak Mau Dikunjungi Oleh
+    private widget.TextBox TidakMauDikunjungi;
+    // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 variabel untuk field baru
+    private widget.TextBox TidakMengizinkanAkses;
+    private widget.TextBox MemberiIzin;
+    private widget.TextBox HubunganMemberiIzin;
     private widget.TextBox Umur;
     private widget.TextBox UmurPJ;
     private widget.Button btnAmbil;
@@ -1298,6 +1449,12 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
     private widget.Label jLabel19;
     private widget.Label jLabel20;
     private widget.Label jLabel21;
+    // CUSTOM PERSETUJUAN UMUM v1.0: Tambah label untuk field Tidak Mau Dikunjungi Oleh
+    private widget.Label jLabel22;
+    // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 label untuk field baru
+    private widget.Label jLabel23;
+    private widget.Label jLabel24;
+    private widget.Label jLabel25;
     private widget.Label jLabel3;
     private widget.Label jLabel4;
     private widget.Label jLabel44;
@@ -1315,22 +1472,26 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         Valid.tabelKosong(tabMode);
         try{
             if(TCari.getText().trim().equals("")){
+                // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 kolom baru di query SELECT
                 ps=koneksi.prepareStatement(
                     "select surat_persetujuan_umum.no_surat,reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,"+
                     "reg_periksa.sttsumur,pasien.jk,pasien.tgl_lahir,surat_persetujuan_umum.tanggal,surat_persetujuan_umum.pengobatan_kepada,"+
                     "surat_persetujuan_umum.nilai_kepercayaan,surat_persetujuan_umum.nama_pj,surat_persetujuan_umum.umur_pj,surat_persetujuan_umum.no_ktppj,"+
                     "surat_persetujuan_umum.jkpj,surat_persetujuan_umum.bertindak_atas,surat_persetujuan_umum.no_telp,surat_persetujuan_umum.nip,"+
-                    "petugas.nama from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
+                    "petugas.nama,surat_persetujuan_umum.tidak_mau_dikunjungi,surat_persetujuan_umum.tidak_mengizinkan_akses,"+
+                    "surat_persetujuan_umum.memberi_izin,surat_persetujuan_umum.hubungan_memberi_izin from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on surat_persetujuan_umum.nip=petugas.nip where "+
                     "surat_persetujuan_umum.tanggal between ? and ? order by surat_persetujuan_umum.tanggal");
             }else{
+                // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 kolom baru di query SELECT dengan filter
                 ps=koneksi.prepareStatement(
                     "select surat_persetujuan_umum.no_surat,reg_periksa.no_rawat,pasien.no_rkm_medis,pasien.nm_pasien,reg_periksa.umurdaftar,"+
                     "reg_periksa.sttsumur,pasien.jk,pasien.tgl_lahir,surat_persetujuan_umum.tanggal,surat_persetujuan_umum.pengobatan_kepada,"+
                     "surat_persetujuan_umum.nilai_kepercayaan,surat_persetujuan_umum.nama_pj,surat_persetujuan_umum.umur_pj,surat_persetujuan_umum.no_ktppj,"+
                     "surat_persetujuan_umum.jkpj,surat_persetujuan_umum.bertindak_atas,surat_persetujuan_umum.no_telp,surat_persetujuan_umum.nip,"+
-                    "petugas.nama from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
+                    "petugas.nama,surat_persetujuan_umum.tidak_mau_dikunjungi,surat_persetujuan_umum.tidak_mengizinkan_akses,"+
+                    "surat_persetujuan_umum.memberi_izin,surat_persetujuan_umum.hubungan_memberi_izin from surat_persetujuan_umum inner join reg_periksa on surat_persetujuan_umum.no_rawat=reg_periksa.no_rawat "+
                     "inner join pasien on reg_periksa.no_rkm_medis=pasien.no_rkm_medis "+
                     "inner join petugas on surat_persetujuan_umum.nip=petugas.nip where "+
                     "surat_persetujuan_umum.tanggal between ? and ? and "+
@@ -1358,12 +1519,14 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
                   
                 rs=ps.executeQuery();
                 while(rs.next()){
+                    // CUSTOM PERSETUJUAN UMUM v2.0: Tambah 3 kolom baru di tampilan tabel (index 19, 20, 21)
                     tabMode.addRow(new Object[]{
                         rs.getString("no_surat"),rs.getString("no_rawat"),rs.getString("no_rkm_medis"),rs.getString("nm_pasien"),
                         rs.getString("umurdaftar")+" "+rs.getString("sttsumur"),rs.getString("jk"),rs.getDate("tgl_lahir"),
                         rs.getString("tanggal"),rs.getString("pengobatan_kepada"),rs.getString("nilai_kepercayaan"),rs.getString("nama_pj"),
                         rs.getString("umur_pj"),rs.getString("no_ktppj"),rs.getString("jkpj"),rs.getString("no_telp"),rs.getString("bertindak_atas"),
-                        rs.getString("nip"),rs.getString("nama") 
+                        rs.getString("nip"),rs.getString("nama"),rs.getString("tidak_mau_dikunjungi"),
+                        rs.getString("tidak_mengizinkan_akses"),rs.getString("memberi_izin"),rs.getString("hubungan_memberi_izin")
                     });
                 }
             } catch (Exception e) {
@@ -1389,6 +1552,12 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
         JKPJ.setSelectedIndex(0);
         NoTelp.setText("");
         NoKTP.setText("");
+        // CUSTOM PERSETUJUAN UMUM v1.0: Clear field Tidak Mau Dikunjungi Oleh
+        TidakMauDikunjungi.setText("");
+        // CUSTOM PERSETUJUAN UMUM v2.0: Clear 3 field baru
+        TidakMengizinkanAkses.setText("");
+        MemberiIzin.setText("");
+        HubunganMemberiIzin.setText("");
         Valid.autoNomer3("select ifnull(MAX(CONVERT(RIGHT(surat_persetujuan_umum.no_surat,3),signed)),0) from surat_persetujuan_umum where surat_persetujuan_umum.tanggal='"+Valid.SetTgl(Tanggal.getSelectedItem()+"")+"' ",
                 "PSU"+Tanggal.getSelectedItem().toString().substring(6,10)+Tanggal.getSelectedItem().toString().substring(3,5)+Tanggal.getSelectedItem().toString().substring(0,2),3,NoSurat);
         NamaPJ.requestFocus();
@@ -1408,8 +1577,14 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
             UmurPJ.setText(tbObat.getValueAt(tbObat.getSelectedRow(),11).toString());  
             NoKTP.setText(tbObat.getValueAt(tbObat.getSelectedRow(),12).toString()); 
             JKPJ.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),13).toString().replaceAll("L","Laki-laki").replaceAll("P","Perempuan")); 
-            NoTelp.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString()); 
-            BertindakAtas.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());  
+            NoTelp.setText(tbObat.getValueAt(tbObat.getSelectedRow(),14).toString());
+            BertindakAtas.setSelectedItem(tbObat.getValueAt(tbObat.getSelectedRow(),15).toString());
+            // CUSTOM PERSETUJUAN UMUM v1.0: Ambil data Tidak Mau Dikunjungi Oleh dari kolom index 18
+            TidakMauDikunjungi.setText(tbObat.getValueAt(tbObat.getSelectedRow(),18).toString());
+            // CUSTOM PERSETUJUAN UMUM v2.0: Ambil data 3 kolom baru dari index 19, 20, 21
+            TidakMengizinkanAkses.setText(tbObat.getValueAt(tbObat.getSelectedRow(),19).toString());
+            MemberiIzin.setText(tbObat.getValueAt(tbObat.getSelectedRow(),20).toString());
+            HubunganMemberiIzin.setText(tbObat.getValueAt(tbObat.getSelectedRow(),21).toString());
             Valid.SetTgl(Tanggal,tbObat.getValueAt(tbObat.getSelectedRow(),7).toString());
         }
     }
@@ -1458,13 +1633,14 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
     private void isForm(){
         if(ChkInput.isSelected()==true){
             ChkInput.setVisible(false);
-            PanelInput.setPreferredSize(new Dimension(WIDTH,175));
-            FormInput.setVisible(true);      
+            // CUSTOM PERSETUJUAN UMUM v2.0: Perbesar tinggi form dari 200 menjadi 225 untuk 3 field baru
+            PanelInput.setPreferredSize(new Dimension(WIDTH,225));
+            FormInput.setVisible(true);
             ChkInput.setVisible(true);
-        }else if(ChkInput.isSelected()==false){           
-            ChkInput.setVisible(false);            
+        }else if(ChkInput.isSelected()==false){
+            ChkInput.setVisible(false);
             PanelInput.setPreferredSize(new Dimension(WIDTH,20));
-            FormInput.setVisible(false);      
+            FormInput.setVisible(false);
             ChkInput.setVisible(true);
         }
     }
@@ -1488,9 +1664,11 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
     }
   
     private void ganti() {
-        if(Sequel.mengedittf("surat_persetujuan_umum","no_surat=?","no_surat=?,no_rawat=?,tanggal=?,nama_pj=?,umur_pj=?,no_ktppj=?,jkpj=?,bertindak_atas=?,no_telp=?,nip=?",11,new String[]{
+        // CUSTOM PERSETUJUAN UMUM v2.0: Update query UPDATE dari 12 menjadi 15 parameter
+        if(Sequel.mengedittf("surat_persetujuan_umum","no_surat=?","no_surat=?,no_rawat=?,tanggal=?,nama_pj=?,umur_pj=?,no_ktppj=?,jkpj=?,bertindak_atas=?,no_telp=?,nip=?,tidak_mau_dikunjungi=?,tidak_mengizinkan_akses=?,memberi_izin=?,hubungan_memberi_izin=?",15,new String[]{
             NoSurat.getText(),TNoRw.getText(),Valid.SetTgl(Tanggal.getSelectedItem()+""),NamaPJ.getText(),UmurPJ.getText(),NoKTP.getText(),
             JKPJ.getSelectedItem().toString().substring(0,1),BertindakAtas.getSelectedItem().toString(),NoTelp.getText(),KdPetugas.getText(),
+            TidakMauDikunjungi.getText(),TidakMengizinkanAkses.getText(),MemberiIzin.getText(),HubunganMemberiIzin.getText(),
             tbObat.getValueAt(tbObat.getSelectedRow(),0).toString()
         })==true){
             tbObat.setValueAt(NoSurat.getText(),tbObat.getSelectedRow(),0);
@@ -1509,6 +1687,12 @@ public final class SuratPersetujuanUmum extends javax.swing.JDialog {
             tbObat.setValueAt(BertindakAtas.getSelectedItem().toString(),tbObat.getSelectedRow(),15);
             tbObat.setValueAt(KdPetugas.getText(),tbObat.getSelectedRow(),16);
             tbObat.setValueAt(NmPetugas.getText(),tbObat.getSelectedRow(),17);
+            // CUSTOM PERSETUJUAN UMUM v1.0: Update kolom TidakMauDikunjungi di tabel display (index 18)
+            tbObat.setValueAt(TidakMauDikunjungi.getText(),tbObat.getSelectedRow(),18);
+            // CUSTOM PERSETUJUAN UMUM v2.0: Update 3 kolom baru di tabel display (index 19, 20, 21)
+            tbObat.setValueAt(TidakMengizinkanAkses.getText(),tbObat.getSelectedRow(),19);
+            tbObat.setValueAt(MemberiIzin.getText(),tbObat.getSelectedRow(),20);
+            tbObat.setValueAt(HubunganMemberiIzin.getText(),tbObat.getSelectedRow(),21);
             emptTeks();
         }
     }
