@@ -1967,6 +1967,17 @@ private void ChkInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             param.put("norawat",TNoRw.getText());
             param.put("pasien",TPasien.getText());
             param.put("norm",TNoRm.getText());
+            // CUSTOM RESEP TAMBAH ALAMAT: Mengambil alamat lengkap pasien dari database (alamat, kelurahan, kecamatan, kabupaten)
+            String alamatPasien = Sequel.cariIsi(
+                "select concat(pasien.alamat,', ',kelurahan.nm_kel,', ',kecamatan.nm_kec,', ',kabupaten.nm_kab) " +
+                "from pasien " +
+                "inner join kelurahan on pasien.kd_kel=kelurahan.kd_kel " +
+                "inner join kecamatan on pasien.kd_kec=kecamatan.kd_kec " +
+                "inner join kabupaten on pasien.kd_kab=kabupaten.kd_kab " +
+                "where pasien.no_rkm_medis=?", TNoRm.getText()
+            );
+            param.put("alamatpasien", alamatPasien);
+            // END CUSTOM RESEP TAMBAH ALAMAT
             param.put("peresep",NmDokter.getText());
             param.put("noresep",NoResep.getText());
             finger=Sequel.cariIsi("select sha1(sidikjari.sidikjari) from sidikjari inner join pegawai on pegawai.id=sidikjari.id where pegawai.nik=?",KdDokter.getText());

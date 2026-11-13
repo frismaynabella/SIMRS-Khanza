@@ -26,6 +26,9 @@
 	<parameter name="peresep" class="java.lang.String"/>
 	<parameter name="noresep" class="java.lang.String"/>
 	<parameter name="finger" class="java.lang.String"/>
+	<!-- CUSTOM RESEP TAMBAH ALAMAT: Parameter untuk menerima alamat lengkap pasien dari Java -->
+	<parameter name="alamatpasien" class="java.lang.String"/>
+	<!-- END CUSTOM RESEP TAMBAH ALAMAT -->
 	<queryString>
 		<![CDATA[select * from temporary_resep]]>
 	</queryString>
@@ -188,7 +191,8 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="133" splitType="Stretch">
+		<!-- CUSTOM RESEP TAMBAH ALAMAT: Tinggi band ditambah 20 pixel (10+10) karena field alamat 2 baris -->
+		<band height="153" splitType="Stretch">
 			<textField>
 				<reportElement x="48" y="14" width="229" height="14" uuid="31498202-9007-4a25-814a-401a5c13ac09"/>
 				<textElement textAlignment="Center">
@@ -327,8 +331,9 @@
 				</textElement>
 				<text><![CDATA[No. Rawat]]></text>
 			</staticText>
+			<!-- CUSTOM RESEP TAMBAH ALAMAT: Text RESEP digeser ke bawah 20 pixel total (dari y=112 ke y=132) untuk space alamat 2 baris -->
 			<staticText>
-				<reportElement mode="Transparent" x="106" y="112" width="65" height="19" uuid="23d77141-2d57-4ccb-ba7c-01397c0cc3be"/>
+				<reportElement mode="Transparent" x="106" y="132" width="65" height="19" uuid="23d77141-2d57-4ccb-ba7c-01397c0cc3be"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
 					<font fontName="Tahoma" size="10" isBold="true"/>
 					<paragraph lineSpacing="Single"/>
@@ -377,8 +382,37 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$P{noresep}]]></textFieldExpression>
 			</textField>
+			<!-- CUSTOM RESEP TAMBAH ALAMAT: Menambahkan label "Alamat" -->
+			<staticText>
+				<reportElement mode="Transparent" x="2" y="108" width="57" height="9" uuid="a1b2c3d4-e5f6-7890-abcd-ef1234567890"/>
+				<textElement markup="none">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[Alamat]]></text>
+			</staticText>
+			<!-- CUSTOM RESEP TAMBAH ALAMAT: Menambahkan tanda titik dua untuk alamat -->
+			<staticText>
+				<reportElement mode="Transparent" x="59" y="108" width="5" height="9" uuid="b2c3d4e5-f6a7-8901-bcde-f12345678901"/>
+				<textElement markup="none">
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<!-- CUSTOM RESEP TAMBAH ALAMAT: Menampilkan alamat lengkap pasien (height ditambah untuk 2 baris) -->
+			<textField isStretchWithOverflow="true">
+				<reportElement x="64" y="108" width="213" height="18" uuid="c3d4e5f6-a7b8-9012-cdef-123456789012"/>
+				<textElement>
+					<font fontName="Tahoma" size="7"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{alamatpasien}]]></textFieldExpression>
+			</textField>
+			<!-- END CUSTOM RESEP TAMBAH ALAMAT -->
+			<!-- CUSTOM RESEP TAMBAH ALAMAT: Line digeser ke bawah 20 pixel total (dari y=110 ke y=130) untuk space alamat 2 baris -->
 			<line>
-				<reportElement x="0" y="110" width="277" height="1" uuid="45a268fe-4879-4414-b5a0-57b8c3821a33"/>
+				<reportElement x="0" y="130" width="277" height="1" uuid="45a268fe-4879-4414-b5a0-57b8c3821a33"/>
 				<graphicElement>
 					<pen lineWidth="2.0" lineStyle="Double"/>
 				</graphicElement>
